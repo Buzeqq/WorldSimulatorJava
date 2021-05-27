@@ -1,53 +1,82 @@
 package com.github.buzeqq.wordlsimulator.GUI;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import com.github.buzeqq.wordlsimulator.GUI.Field.GUIField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GUI extends JFrame {
-    private final JPanel world;
+import com.github.buzeqq.wordlsimulator.GUI.Field.GUIField;
+import com.github.buzeqq.wordlsimulator.GUI.GUIComments.GUIComments;
+import com.github.buzeqq.wordlsimulator.GUI.GUIWorld.GUIWorld;
+
+public class GUI extends JFrame implements ActionListener {
+    private GUIWorld worldPane;
+    private GUIComments commentSection;
+    private JLabel lWorld;
+    private int turnCounter = 0;
+
     private final JButton nextRound;
 
-    public GUI(Dimension frameSize, Dimension worldSize) {
+    public GUI(final int x, final int y) {
         this.setTitle("World simulator");
-        this.setSize(frameSize);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel mainPanel = new JPanel(null);
+        JPanel main = new JPanel(new GridBagLayout());
 
-        this.setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
-        world = new JPanel();
-        world.setBounds(0, 0, worldSize.width, worldSize.height);
-        world.setLayout(new GridLayout(20, 20));
-        world.setBackground(Color.GRAY);
+        lWorld = new JLabel("Turn: 0");
+        main.add(lWorld, makeConstraints(0, 0, 1, 1, GridBagConstraints.FIRST_LINE_START));
+        Dimension worldSize = new Dimension(x * GUIField.SIZE, y * GUIField.SIZE);
+        worldPane = new GUIWorld(worldSize, x, y);
 
-        for (int x = 0; x < 20; x++) {
-            for (int y = 0; y < 20; y++) {
-                world.add(new GUIField("{" + x + ", " + y + "}"));
-            }
-        }
+        JScrollPane worldScroll = new JScrollPane(worldPane);
+        worldScroll.setPreferredSize(new Dimension(600, 600));
+        worldScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        worldScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        main.add(worldScroll, makeConstraints(0, 1, 20, 20, GridBagConstraints.FIRST_LINE_START));
 
         nextRound = new JButton("Next round!");
+        nextRound.addActionListener(this);
+        main.add(nextRound, makeConstraints(20, 1, 1, 1, GridBagConstraints.FIRST_LINE_END));
 
-        mainPanel.add(world, makeConstraints(0, 0, 5));
-        mainPanel.add(nextRound, makeConstraints(0, 10, 5));
+        JLabel lCommentSection = new JLabel("Comment section:");
+        main.add(lCommentSection, makeConstraints(20, 2, 1, 1, GridBagConstraints.FIRST_LINE_END));
+        commentSection = new GUIComments();
+        JScrollPane scrollCommentSection = new JScrollPane(commentSection);
+        scrollCommentSection.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollCommentSection.setPreferredSize(new Dimension(300, 600));
+        main.add(scrollCommentSection, makeConstraints(20, 3, 1, 1, GridBagConstraints.FIRST_LINE_END));
 
-        this.setContentPane(mainPanel);
+        main.setBackground(Color.GRAY);
+        main.setVisible(true);
+
+        this.setContentPane(main);
+        this.pack();
         this.setVisible(true);
-        //this.setResizable(false);
-        world.setVisible(true);
     }
 
-    public static GridBagConstraints makeConstraints(final int x, final int y, final int width) {
+    public static GridBagConstraints makeConstraints(final int x, final int y, final int width, final int height, final int anchor) {
         final GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = anchor;
         gridBagConstraints.insets = new Insets(5,5,5,5);
 
         gridBagConstraints.gridx = x;
         gridBagConstraints.gridy = y;
         gridBagConstraints.gridwidth = width;
-        gridBagConstraints.gridheight = 1;
+        gridBagConstraints.gridheight = height;
 
         return gridBagConstraints;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == nextRound) {
+            // world.makeTurn()
+            // worldPane.repaint(world)
+            // commentSectionPane.repaint(world.getComments())
+            turnCounter++;
+            lWorld.setText("Turn: " + turnCounter);
+            commentSection.append("TURN: " + turnCounter + "\n");
+        }
     }
 }

@@ -4,12 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GUIField extends JButton {
+
+    public static final int SIZE = 30;
+
     public GUIField(final String string) {
         super(string);
         //this.setBackground(Color.cyan);
-        this.setSize(5, 5);
+        //this.setSize(10, 10);
+        this.setPreferredSize(new Dimension(SIZE, SIZE));
         this.setOpaque(false);
         this.setContentAreaFilled(false);
+        this.setVisible(true);
         //this.setBorderPainted(false);
     }
 }
