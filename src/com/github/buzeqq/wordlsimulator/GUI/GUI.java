@@ -72,11 +72,15 @@ public class GUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == nextRound) {
             // world.makeTurn()
-            // worldPane.repaint(world)
+            // world.print()
             // commentSectionPane.repaint(world.getComments())
             turnCounter++;
             lWorld.setText("Turn: " + turnCounter);
             commentSection.append("TURN: " + turnCounter + "\n");
         }
+    }
+
+    public final GUIWorld getWorldPane() {
+        return this.worldPane;
     }
 }
