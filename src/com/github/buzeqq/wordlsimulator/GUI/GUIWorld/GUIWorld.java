@@ -1,6 +1,6 @@
 package com.github.buzeqq.wordlsimulator.GUI.GUIWorld;
 
-import com.github.buzeqq.wordlsimulator.GUI.Field.GUIField;
+import com.github.buzeqq.wordlsimulator.GUI.GUIField.GUIField;
 
 import javax.swing.*;
 import java.awt.*;

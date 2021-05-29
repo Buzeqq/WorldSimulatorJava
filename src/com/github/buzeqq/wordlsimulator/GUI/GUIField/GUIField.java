@@ -1,4 +1,4 @@
-package com.github.buzeqq.wordlsimulator.GUI.Field;
+package com.github.buzeqq.wordlsimulator.GUI.GUIField;
 
 import javax.swing.*;
 import java.awt.*;

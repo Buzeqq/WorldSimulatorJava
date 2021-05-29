@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.github.buzeqq.wordlsimulator.GUI.Field.GUIField;
+import com.github.buzeqq.wordlsimulator.GUI.GUIField.GUIField;
 import com.github.buzeqq.wordlsimulator.GUI.GUIComments.GUIComments;
 import com.github.buzeqq.wordlsimulator.GUI.GUIWorld.GUIWorld;
 
