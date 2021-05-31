@@ -5,8 +5,7 @@ import com.github.buzeqq.wordlsimulator.World.World;
 
 public class App {
     public static void main(final String[] args) {
-        GUI gui = new GUI(20, 20);
-        World world = new World(20, 20, gui.getWorldPane());
-
+        int X = 5, Y = 5;
+        GUI gui = new GUI(X, Y, new World(X, Y));
     }
 }

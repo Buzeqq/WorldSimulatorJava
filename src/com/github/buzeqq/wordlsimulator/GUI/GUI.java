@@ -8,8 +8,10 @@ import java.awt.event.ActionListener;
 import com.github.buzeqq.wordlsimulator.GUI.GUIField.GUIField;
 import com.github.buzeqq.wordlsimulator.GUI.GUIComments.GUIComments;
 import com.github.buzeqq.wordlsimulator.GUI.GUIWorld.GUIWorld;
+import com.github.buzeqq.wordlsimulator.World.World;
 
 public class GUI extends JFrame implements ActionListener {
+    private World world;
     private GUIWorld worldPane;
     private GUIComments commentSection;
     private JLabel lWorld;
@@ -17,7 +19,9 @@ public class GUI extends JFrame implements ActionListener {
 
     private final JButton nextRound;
 
-    public GUI(final int x, final int y) {
+    public GUI(final int x, final int y, final World world) {
+        this.world = world;
+
         this.setTitle("World simulator");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -26,7 +30,7 @@ public class GUI extends JFrame implements ActionListener {
         lWorld = new JLabel("Turn: 0");
         main.add(lWorld, makeConstraints(0, 0, 1, 1, GridBagConstraints.FIRST_LINE_START));
         Dimension worldSize = new Dimension(x * GUIField.SIZE, y * GUIField.SIZE);
-        worldPane = new GUIWorld(worldSize, x, y);
+        worldPane = new GUIWorld(x, y);
 
         JScrollPane worldScroll = new JScrollPane(worldPane);
         worldScroll.setPreferredSize(new Dimension(600, 600));
@@ -74,6 +78,7 @@ public class GUI extends JFrame implements ActionListener {
             // world.makeTurn()
             // world.print()
             // commentSectionPane.repaint(world.getComments())
+            worldPane.printWorld(world);
             turnCounter++;
             lWorld.setText("Turn: " + turnCounter);
             commentSection.append("TURN: " + turnCounter + "\n");

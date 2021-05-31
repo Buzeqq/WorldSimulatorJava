@@ -9,12 +9,12 @@ public class GUIField extends JButton {
 
     public GUIField(final String string) {
         super(string);
-        //this.setBackground(Color.cyan);
+        this.setBackground(Color.cyan);
         //this.setSize(10, 10);
         this.setPreferredSize(new Dimension(SIZE, SIZE));
-        this.setOpaque(false);
-        this.setContentAreaFilled(false);
+        this.setOpaque(true);
+        this.setContentAreaFilled(true);
         this.setVisible(true);
-        //this.setBorderPainted(false);
+        this.setBorderPainted(false);
     }
 }

@@ -1,7 +1,10 @@
 package com.github.buzeqq.wordlsimulator.World.Organisms;
 
+import com.github.buzeqq.wordlsimulator.GUI.GUIField.GUIField;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
 import com.github.buzeqq.wordlsimulator.World.World;
+
+import javax.swing.*;
 
 public abstract class Organism {
 
@@ -40,6 +43,8 @@ public abstract class Organism {
     public abstract void makeAction();
 
     public abstract void collision();
+
+    public abstract GUIField print();
 
     private final int initiative;
     private int strength;
