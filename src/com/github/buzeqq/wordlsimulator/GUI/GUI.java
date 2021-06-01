@@ -8,20 +8,22 @@ import java.awt.event.ActionListener;
 import com.github.buzeqq.wordlsimulator.GUI.GUIField.GUIField;
 import com.github.buzeqq.wordlsimulator.GUI.GUIComments.GUIComments;
 import com.github.buzeqq.wordlsimulator.GUI.GUIWorld.GUIWorld;
+import com.github.buzeqq.wordlsimulator.Utilities.Direction;
 import com.github.buzeqq.wordlsimulator.World.World;
 
 public class GUI extends JFrame implements ActionListener {
     private World world;
-    private GUIWorld worldPane;
-    private GUIComments commentSection;
-    private JLabel lWorld;
+    private final GUIWorld worldPane;
+    private final GUIComments commentSection;
+    private final JLabel lWorld;
     private int turnCounter = 0;
-
     private final JButton nextRound;
+    private final Action upAction;
+    private final Action rightAction;
+    private final Action downAction;
+    private final Action leftAction;
 
-    public GUI(final int x, final int y, final World world) {
-        this.world = world;
-
+    public GUI(final int x, final int y) {
         this.setTitle("World simulator");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -29,8 +31,24 @@ public class GUI extends JFrame implements ActionListener {
 
         lWorld = new JLabel("Turn: 0");
         main.add(lWorld, makeConstraints(0, 0, 1, 1, GridBagConstraints.FIRST_LINE_START));
-        Dimension worldSize = new Dimension(x * GUIField.SIZE, y * GUIField.SIZE);
         worldPane = new GUIWorld(x, y);
+
+        this.upAction = new UpAction();
+        this.rightAction = new RightAction();
+        this.downAction = new DownAction();
+        this.leftAction = new LeftAction();
+
+        worldPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "upAction");
+        worldPane.getActionMap().put("upAction", upAction);
+
+        worldPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "rightAction");
+        worldPane.getActionMap().put("rightAction", rightAction);
+
+        worldPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "downAction");
+        worldPane.getActionMap().put("downAction", downAction);
+
+        worldPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "leftAction");
+        worldPane.getActionMap().put("leftAction", leftAction);
 
         JScrollPane worldScroll = new JScrollPane(worldPane);
         worldScroll.setPreferredSize(new Dimension(600, 600));
@@ -58,6 +76,10 @@ public class GUI extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    public final void setWorld(final World world) {
+        this.world = world;
+    }
+
     public static GridBagConstraints makeConstraints(final int x, final int y, final int width, final int height, final int anchor) {
         final GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -75,9 +97,10 @@ public class GUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == nextRound) {
-            // world.makeTurn()
-            // world.print()
-            // commentSectionPane.repaint(world.getComments())
+            if (turnCounter != 0) {
+                world.makeTurn();
+                // commentSectionPane.repaint(world.getComments())
+            }
             worldPane.printWorld(world);
             turnCounter++;
             lWorld.setText("Turn: " + turnCounter);
@@ -87,5 +110,33 @@ public class GUI extends JFrame implements ActionListener {
 
     public final GUIWorld getWorldPane() {
         return this.worldPane;
+    }
+
+    public class UpAction extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            worldPane.setDirection(Direction.DIRECTION_UP);
+        }
+    }
+
+    public class RightAction extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            worldPane.setDirection(Direction.DIRECTION_RIGHT);
+        }
+    }
+
+    public class DownAction extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            worldPane.setDirection(Direction.DIRECTION_DOWN);
+        }
+    }
+
+    public class LeftAction extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            worldPane.setDirection(Direction.DIRECTION_LEFT);
+        }
     }
 }

@@ -2,14 +2,16 @@ package com.github.buzeqq.wordlsimulator.GUI.GUIWorld;
 
 import com.github.buzeqq.wordlsimulator.GUI.GUIField.GUIField;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
+import com.github.buzeqq.wordlsimulator.Utilities.Direction;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Organism;
 import com.github.buzeqq.wordlsimulator.World.World;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
 public class GUIWorld extends JPanel {
+
+    private Direction direction;
 
     public GUIWorld(final int x, final int y) {
         this.setLayout(new GridLayout(x, y));
@@ -32,12 +34,11 @@ public class GUIWorld extends JPanel {
             for (int x = 0; x < world.getBounds().getX(); x++) {
                 Organism organism = world.getOrganism(new Coordinates(x, y));
                 GUIField field;
+
                 if (organism != null) {
                     field = organism.print();
                     field.setBackground(Color.PINK);
                 } else field = new GUIField("");
-                //Random random = new Random();
-                //field.setBackground(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
 
                 this.add(field);
             }
@@ -45,5 +46,13 @@ public class GUIWorld extends JPanel {
 
         this.revalidate();
         this.repaint();
+    }
+
+    public final void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    public final Direction getDirection() {
+        return this.direction;
     }
 }

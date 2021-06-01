@@ -69,4 +69,22 @@ public class Coordinates {
         Random random = new Random();
         return new Coordinates(random.nextInt(upperboundX), random.nextInt(upperboundY));
     }
+
+    @Override
+    public final String toString() {
+        return "Coordinates (" + this.x + ", " + this.y + ")";
+    }
+
+    @Override
+    public final int hashCode() {
+        return 31 * Integer.hashCode(this.x) + Integer.hashCode(this.y) + 19;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Coordinates) {
+            Coordinates coordinates = (Coordinates)obj;
+            return this.x == coordinates.x && this.y == coordinates.y;
+        } else return false;
+    }
 }

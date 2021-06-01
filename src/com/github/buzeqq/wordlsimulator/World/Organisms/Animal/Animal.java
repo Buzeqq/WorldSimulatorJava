@@ -22,8 +22,13 @@ public abstract class Animal extends Organism {
         }
 
         Coordinates newCords = new Coordinates(this.getCoords().getX(), this.getCoords().getY(), direction);
-        if (this.getOrigin().getOrganism(newCords) != null) this.getCoords().setCoords(newCords);
+        if (this.getOrigin().getOrganism(newCords) != null) {
+            this.getOrigin().changeOrganisms(newCords, this);
+            this.getCoords().setCoords(newCords);
+        }
         // else perform collision
+
+        this.getOlder();
     }
 
     @Override
@@ -35,7 +40,7 @@ public abstract class Animal extends Organism {
     public void collision() {
     }
 
-    private boolean validateMove(Direction direction) {
+    protected boolean validateMove(Direction direction) {
         Coordinates bounds = this.getOrigin().getBounds();
 
         if ((this.getCoords().getX() == 0 && direction == Direction.DIRECTION_LEFT) ||
