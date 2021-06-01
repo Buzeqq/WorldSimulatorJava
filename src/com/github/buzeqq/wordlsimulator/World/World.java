@@ -3,6 +3,7 @@ package com.github.buzeqq.wordlsimulator.World;
 import com.github.buzeqq.wordlsimulator.GUI.GUIWorld.GUIWorld;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Human.Human;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Sheep.Sheep;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Organism;
 
 import java.util.HashMap;
@@ -17,7 +18,8 @@ public class World {
         this.organisms = new HashMap<>();
         this.guiWorld = guiWorld;
 
-        this.born(new Human(this.getRandomFreeCoords(), this, this.guiWorld));
+        //this.born(new Human(this.getRandomFreeCoords(), this, this.guiWorld));
+        this.born(new Sheep(this.getRandomFreeCoords(), this));
         this.printOrganisms();
     }
 

@@ -15,14 +15,14 @@ public abstract class Animal extends Organism {
 
     public void move() {
         Random random = new Random();
-        Direction direction = Direction.values()[random.nextInt(3)];
+        Direction direction = Direction.values()[random.nextInt(4)];
 
         while (!this.validateMove(direction)) {
-            direction = Direction.values()[random.nextInt(3)];
+            direction = Direction.values()[random.nextInt(4)];
         }
 
         Coordinates newCords = new Coordinates(this.getCoords().getX(), this.getCoords().getY(), direction);
-        if (this.getOrigin().getOrganism(newCords) != null) {
+        if (this.getOrigin().getOrganism(newCords) == null) {
             this.getOrigin().changeOrganisms(newCords, this);
             this.getCoords().setCoords(newCords);
         }
@@ -38,6 +38,7 @@ public abstract class Animal extends Organism {
 
     @Override
     public void collision() {
+
     }
 
     protected boolean validateMove(Direction direction) {
