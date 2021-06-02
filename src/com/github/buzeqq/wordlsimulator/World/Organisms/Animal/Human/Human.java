@@ -50,4 +50,9 @@ public class Human extends Animal {
     public final String toString() {
         return "Human: " + this.getCoords() + " initiative: " + this.getInitiative() + " strength: " + this.getStrength();
     }
+
+    @Override
+    public final Organism getNew(Coordinates coords) {
+        return new Human(coords, this.getOrigin(), this.guiWorld);
+    }
 }

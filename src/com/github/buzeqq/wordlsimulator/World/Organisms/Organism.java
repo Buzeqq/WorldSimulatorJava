@@ -2,6 +2,7 @@ package com.github.buzeqq.wordlsimulator.World.Organisms;
 
 import com.github.buzeqq.wordlsimulator.GUI.GUIField.GUIField;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
+import com.github.buzeqq.wordlsimulator.Utilities.Direction;
 import com.github.buzeqq.wordlsimulator.World.World;
 
 public abstract class Organism {
@@ -60,24 +61,33 @@ public abstract class Organism {
 
     public void collision(Organism other) {
         if (other.getStrength() >= this.getStrength()) {
-            // this dies and other moves in place of this
             this.die();
             other.getOrigin().changeOrganisms(this.getCoords(), other);
             other.getCoords().setCoords(this.getCoords());
         } else {
-            // other dies and this stays in place
             other.die();
         }
     }
 
+    protected final Coordinates getFreeCoordsNextTo() {
+        for (Direction direction : Direction.values()) {
+            Coordinates coords = new Coordinates(this.getCoords().getX(), this.getCoords().getY(), direction);
+            if (!this.getOrigin().validateCoords(coords)) continue;
+            if (this.getOrigin().getOrganism(coords) == null) return coords;
+        }
+        return null;
+    }
     public abstract GUIField print();
 
     public abstract boolean sameType(Organism other);
 
+    public abstract Organism getNew(Coordinates coords);
+
     private final int initiative;
-    private int strength;
+    private final int strength;
     private int age;
-    private Coordinates coords;
-    private World origin;
+    private final Coordinates coords;
+    private final World origin;
     private boolean dead;
+
 }

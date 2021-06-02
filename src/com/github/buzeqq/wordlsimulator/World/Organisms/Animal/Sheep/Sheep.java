@@ -35,4 +35,9 @@ public class Sheep extends Animal {
     public final boolean sameType(Organism other) {
         return other instanceof Sheep;
     }
+
+    @Override
+    public Organism getNew(Coordinates coords) {
+        return new Sheep(coords, this.getOrigin());
+    }
 }

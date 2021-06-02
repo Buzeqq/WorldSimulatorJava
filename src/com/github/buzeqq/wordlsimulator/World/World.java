@@ -7,7 +7,6 @@ import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Sheep.Sheep;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Organism;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class World {
     private final HashMap<Coordinates, Organism> organisms;
@@ -18,7 +17,7 @@ public class World {
         this.organisms = new HashMap<>();
 
         // Human
-        this.born(new Human(this.getRandomFreeCoords(), this, guiWorld));
+        // this.born(new Human(this.getRandomFreeCoords(), this, guiWorld));
 
         // Animals
         this.born(new Sheep(this.getRandomFreeCoords(), this));
@@ -71,9 +70,16 @@ public class World {
         }
     }
 
+    public final boolean validateCoords(Coordinates coords) {
+        if (coords.getX() >= this.bounds.getX() || coords.getX() < 0) return false;
+        return coords.getY() < this.bounds.getY() && coords.getY() >= 0;
+    }
+
     private void printOrganisms() {
+        System.out.println("-----------------------------");
         for (Organism organism : this.organisms.values()) {
             System.out.println(organism);
         }
+        System.out.println("-----------------------------");
     }
 }
