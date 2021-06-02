@@ -10,10 +10,10 @@ import java.awt.*;
 import java.util.Random;
 
 public class Dandelion extends Plant {
+
     public Dandelion(final Coordinates coordinates, final World origin) {
         super(coordinates, 0, origin);
     }
-
 
     @Override
     public final GUIField print() {

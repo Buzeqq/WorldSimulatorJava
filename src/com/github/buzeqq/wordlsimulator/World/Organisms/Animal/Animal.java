@@ -32,6 +32,7 @@ public abstract class Animal extends Organism {
     @Override
     public void collision(Animal other) {
         if (this.sameType(other)) {
+            this.getOrigin().getCommentator().breed(this, other);
             this.breed(other);
         } else {
             super.collision(other);
@@ -61,6 +62,7 @@ public abstract class Animal extends Organism {
 
     protected void checkIfCollides(Coordinates newCords) {
         if (this.getOrigin().getOrganism(newCords) == null) {
+            this.getOrigin().getCommentator().move(this, newCords);
             this.getOrigin().changeOrganisms(newCords, this);
             this.getCoords().setCoords(newCords);
         } else {
@@ -69,6 +71,7 @@ public abstract class Animal extends Organism {
     }
 
     public final void buff(final int buff) {
+        this.getOrigin().getCommentator().buff(this);
         this.setStrength(this.getStrength() + buff);
     }
 }

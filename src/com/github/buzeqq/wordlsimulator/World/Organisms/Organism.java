@@ -65,6 +65,7 @@ public abstract class Organism {
     public abstract void makeAction();
 
     public void collision(Animal other) {
+        this.getOrigin().getCommentator().confrontation(this, other);
         if (other.getStrength() >= this.getStrength()) {
             this.die();
             other.getOrigin().changeOrganisms(this.getCoords(), other);

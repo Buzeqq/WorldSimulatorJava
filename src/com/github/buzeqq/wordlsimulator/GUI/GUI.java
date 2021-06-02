@@ -99,7 +99,6 @@ public class GUI extends JFrame implements ActionListener {
         if (e.getSource() == nextRound) {
             if (turnCounter != 0) {
                 world.makeTurn();
-                // commentSectionPane.repaint(world.getComments())
             }
             worldPane.printWorld(world);
             turnCounter++;
@@ -110,6 +109,10 @@ public class GUI extends JFrame implements ActionListener {
 
     public final GUIWorld getWorldPane() {
         return this.worldPane;
+    }
+
+    public final GUIComments getCommentSection() {
+        return this.commentSection;
     }
 
     public class UpAction extends AbstractAction {

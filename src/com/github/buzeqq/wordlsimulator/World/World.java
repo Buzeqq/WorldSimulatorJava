@@ -1,7 +1,10 @@
 package com.github.buzeqq.wordlsimulator.World;
 
+import com.github.buzeqq.wordlsimulator.GUI.GUIComments.GUIComments;
 import com.github.buzeqq.wordlsimulator.GUI.GUIWorld.GUIWorld;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
+import com.github.buzeqq.wordlsimulator.World.Commentator.Commentator;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Animal;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Fox.Fox;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Human.Human;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Sheep.Sheep;
@@ -16,10 +19,12 @@ import java.util.*;
 public class World {
     private final HashMap<Coordinates, Organism> organisms;
     private final Coordinates bounds;
+    private final Commentator commentator;
 
-    public World(final int x, final int y, GUIWorld guiWorld) {
-        bounds = new Coordinates(x, y);
+    public World(final int x, final int y, GUIWorld guiWorld, GUIComments commentSection) {
+        this.bounds = new Coordinates(x, y);
         this.organisms = new HashMap<>();
+        this.commentator = new Commentator(commentSection);
 
         // Human
         this.born(new Human(this.getRandomFreeCoords(), this, guiWorld));
@@ -53,6 +58,7 @@ public class World {
             organism.getValue().makeAction();
         }
 
+        this.commentator.updateCommentSection();
         this.printOrganisms();
     }
 
@@ -64,12 +70,18 @@ public class World {
         return this.organisms.get(coords);
     }
 
+    public final Commentator getCommentator() {
+        return this.commentator;
+    }
+
     public final void born(Organism organism) {
         this.organisms.put(organism.getCoords(), organism);
+        this.commentator.born(organism);
     }
 
     public final void die(Organism organism) {
         this.organisms.remove(organism.getCoords());
+        this.commentator.die(organism);
     }
 
     public final void changeOrganisms(final Coordinates newCoords, final Organism organism) {
