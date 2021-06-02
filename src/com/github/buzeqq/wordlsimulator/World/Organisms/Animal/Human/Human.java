@@ -37,8 +37,7 @@ public class Human extends Animal {
         this.guiWorld.setDirection(null);
         if (direction == null || this.validateMove(direction)) return;
 
-        this.checkIfCollides(new Coordinates(this.getCoords().getX(), this.getCoords().getY(), direction));
-
+        this.checkIfCollides(new Coordinates(this.getCoords(), direction));
     }
 
     @Override
@@ -48,7 +47,7 @@ public class Human extends Animal {
 
     @Override
     public final String toString() {
-        return "Human: " + this.getCoords() + " initiative: " + this.getInitiative() + " strength: " + this.getStrength();
+        return "Human: " + this.getCoords() + " initiative: " + this.getInitiative() + " strength: " + this.getStrength() + " age: " + this.getAge();
     }
 
     @Override

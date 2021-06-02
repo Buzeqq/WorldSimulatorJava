@@ -37,6 +37,6 @@ public class Wolf extends Animal {
 
     @Override
     public String toString() {
-        return "Wolf: " + this.getCoords() + " initiative: " + this.getInitiative() + " strength: " + this.getStrength();
+        return "Wolf: " + this.getCoords() + " initiative: " + this.getInitiative() + " strength: " + this.getStrength() + " age: " + this.getAge();
     }
 }

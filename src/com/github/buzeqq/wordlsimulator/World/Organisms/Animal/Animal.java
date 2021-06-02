@@ -2,6 +2,7 @@ package com.github.buzeqq.wordlsimulator.World.Organisms.Animal;
 
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
 import com.github.buzeqq.wordlsimulator.Utilities.Direction;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Human.Human;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Organism;
 import com.github.buzeqq.wordlsimulator.World.World;
 
@@ -20,11 +21,11 @@ public abstract class Animal extends Organism {
             direction = Direction.values()[random.nextInt(4)];
         }
 
-        this.checkIfCollides(new Coordinates(this.getCoords().getX(), this.getCoords().getY(), direction));
+        this.checkIfCollides(new Coordinates(this.getCoords(), direction));
     }
 
     @Override
-    public void makeAction() {
+    public final void makeAction() {
         this.move();
         this.getOlder();
     }
@@ -32,6 +33,7 @@ public abstract class Animal extends Organism {
     @Override
     public void collision(Organism other) {
         if (this.sameType(other)) {
+            //if (this.equals(other)) return;
             this.breed((Animal)other);
         } else {
             super.collision(other);

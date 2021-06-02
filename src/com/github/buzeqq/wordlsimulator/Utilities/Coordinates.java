@@ -11,26 +11,26 @@ public class Coordinates {
         this.y = y;
     }
 
-    public Coordinates(final int x, final int y, final Direction direction) {
+    public Coordinates(final Coordinates coordinates, final Direction direction) {
         switch (direction) {
             case DIRECTION_UP -> {
-                this.x = x;
-                this.y = y - 1;
+                this.x = coordinates.x;
+                this.y = coordinates.y - 1;
             }
 
             case DIRECTION_RIGHT -> {
-                this.x = x + 1;
-                this.y = y;
+                this.x = coordinates.x + 1;
+                this.y = coordinates.y;
             }
 
             case DIRECTION_DOWN -> {
-                this.x = x;
-                this.y = y + 1;
+                this.x = coordinates.x;
+                this.y = coordinates.y + 1;
             }
 
             case DIRECTION_LEFT -> {
-                this.x = x - 1;
-                this.y = y;
+                this.x = coordinates.x - 1;
+                this.y = coordinates.y;
             }
         }
     }
@@ -60,7 +60,7 @@ public class Coordinates {
         this.y = y;
     }
 
-    public final void setCoords(Coordinates coords) {
+    public final void setCoords(final Coordinates coords) {
         this.x = coords.x;
         this.y = coords.y;
     }

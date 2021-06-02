@@ -28,7 +28,7 @@ public class Sheep extends Animal {
 
     @Override
     public final String toString() {
-        return "Sheep: " + this.getCoords() + " initiative: " + this.getInitiative() + " strength: " + this.getStrength();
+        return "Sheep: " + this.getCoords() + " initiative: " + this.getInitiative() + " strength: " + this.getStrength() + " age: " + this.getAge();
     }
 
     @Override
