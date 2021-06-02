@@ -72,7 +72,7 @@ public abstract class Organism {
     protected Coordinates getFreeCoordsNextTo() {
         for (Direction direction : Direction.values()) {
             Coordinates coords = new Coordinates(this.getCoords(), direction);
-            if (!this.getOrigin().validateCoords(coords)) continue;
+            if (this.getOrigin().validateCoords(coords)) continue;
             if (this.getOrigin().getOrganism(coords) == null) return coords;
         }
         return null;

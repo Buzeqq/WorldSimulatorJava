@@ -26,7 +26,7 @@ public abstract class Plant extends Organism {
         Direction randomDirection = Direction.values()[random.nextInt(4)];
 
         Coordinates coords = new Coordinates(this.getCoords(), randomDirection);
-        if (!this.getOrigin().validateCoords(coords)) return null;
+        if (this.getOrigin().validateCoords(coords)) return null;
         if (this.getOrigin().getOrganism(coords) == null) {
             return coords;
         } else return null;

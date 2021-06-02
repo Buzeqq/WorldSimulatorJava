@@ -2,9 +2,8 @@ package com.github.buzeqq.wordlsimulator.World;
 
 import com.github.buzeqq.wordlsimulator.GUI.GUIWorld.GUIWorld;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Fox.Fox;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Human.Human;
-import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Sheep.Sheep;
-import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Wolf.Wolf;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Organism;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.Dandelion.Dandelion;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.Grass.Grass;
@@ -20,11 +19,15 @@ public class World {
         this.organisms = new HashMap<>();
 
         // Human
-        // this.born(new Human(this.getRandomFreeCoords(), this, guiWorld));
+        this.born(new Human(this.getRandomFreeCoords(), this, guiWorld));
 
         // Animals
         // this.born(new Sheep(this.getRandomFreeCoords(), this));
-        this.born(new Sheep(this.getRandomFreeCoords(), this));
+        // this.born(new Sheep(this.getRandomFreeCoords(), this));
+        this.born(new Fox(this.getRandomFreeCoords(), this));
+        // this.born(new Fox(this.getRandomFreeCoords(), this));
+        // this.born(new Wolf(this.getRandomFreeCoords(), this));
+
 
         //Plants
         this.born(new Grass(this.getRandomFreeCoords(), this));
@@ -77,8 +80,8 @@ public class World {
     }
 
     public final boolean validateCoords(Coordinates coords) {
-        if (coords.getX() >= this.bounds.getX() || coords.getX() < 0) return false;
-        return coords.getY() < this.bounds.getY() && coords.getY() >= 0;
+        if (coords.getX() >= this.bounds.getX() || coords.getX() < 0) return true;
+        return coords.getY() >= this.bounds.getY() || coords.getY() < 0;
     }
 
     private void printOrganisms() {
