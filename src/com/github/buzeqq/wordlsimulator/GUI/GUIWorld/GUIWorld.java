@@ -37,7 +37,6 @@ public class GUIWorld extends JPanel {
 
                 if (organism != null) {
                     field = organism.print();
-                    field.setBackground(Color.PINK);
                 } else field = new GUIField("");
 
                 this.add(field);

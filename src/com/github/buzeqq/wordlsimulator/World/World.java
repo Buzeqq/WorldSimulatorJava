@@ -6,26 +6,36 @@ import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Human.Human;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Sheep.Sheep;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Organism;
 
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class World {
-    private GUIWorld guiWorld;
     private final HashMap<Coordinates, Organism> organisms;
     private final Coordinates bounds;
 
     public World(final int x, final int y, GUIWorld guiWorld) {
         bounds = new Coordinates(x, y);
         this.organisms = new HashMap<>();
-        this.guiWorld = guiWorld;
 
-        //this.born(new Human(this.getRandomFreeCoords(), this, this.guiWorld));
+        // Human
+        this.born(new Human(this.getRandomFreeCoords(), this, guiWorld));
+
+        // Animals
         this.born(new Sheep(this.getRandomFreeCoords(), this));
+        this.born(new Sheep(this.getRandomFreeCoords(), this));
+        this.born(new Sheep(this.getRandomFreeCoords(), this));
+
         this.printOrganisms();
     }
 
     public void makeTurn() {
-        for (Organism organism : this.organisms.values()) {
-            organism.makeAction();
+
+        List<Map.Entry<Coordinates, Organism>> list = new LinkedList<>(organisms.entrySet());
+        list.sort((o1, o2) -> o1.getValue().compareTo(o2.getValue()));
+
+        for (Map.Entry<Coordinates, Organism> organism : list) {
+            if (organism.getValue().isDead()) continue; // not sure if dead organisms are really dead, because we change the hashmap not the list
+            organism.getValue().makeAction();
         }
 
         this.printOrganisms();
@@ -43,13 +53,13 @@ public class World {
         this.organisms.put(organism.getCoords(), organism);
     }
 
+    public final void die(Organism organism) {
+        this.organisms.remove(organism.getCoords());
+    }
+
     public final void changeOrganisms(final Coordinates newCoords, final Organism organism) {
         this.organisms.remove(organism.getCoords());
         this.organisms.put(newCoords, organism);
-    }
-
-    public final void setGUI(GUIWorld guiWorld) {
-        this.guiWorld = guiWorld;
     }
 
     private Coordinates getRandomFreeCoords() {

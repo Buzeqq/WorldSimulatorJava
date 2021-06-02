@@ -5,7 +5,6 @@ import com.github.buzeqq.wordlsimulator.Utilities.Direction;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Organism;
 import com.github.buzeqq.wordlsimulator.World.World;
 
-import javax.swing.*;
 import java.util.Random;
 
 public abstract class Animal extends Organism {
@@ -17,37 +16,47 @@ public abstract class Animal extends Organism {
         Random random = new Random();
         Direction direction = Direction.values()[random.nextInt(4)];
 
-        while (!this.validateMove(direction)) {
+        while (this.validateMove(direction)) {
             direction = Direction.values()[random.nextInt(4)];
         }
 
-        Coordinates newCords = new Coordinates(this.getCoords().getX(), this.getCoords().getY(), direction);
-        if (this.getOrigin().getOrganism(newCords) == null) {
-            this.getOrigin().changeOrganisms(newCords, this);
-            this.getCoords().setCoords(newCords);
-        }
-        // else perform collision
-
-        this.getOlder();
+        this.checkIfCollides(new Coordinates(this.getCoords().getX(), this.getCoords().getY(), direction));
     }
 
     @Override
     public void makeAction() {
         this.move();
+        this.getOlder();
     }
 
     @Override
-    public void collision() {
-
+    public void collision(Organism other) {
+        if (this.sameType(other)) {
+            // breed
+            return;
+        } else {
+            super.collision(other);
+        }
     }
 
     protected boolean validateMove(Direction direction) {
         Coordinates bounds = this.getOrigin().getBounds();
 
         if ((this.getCoords().getX() == 0 && direction == Direction.DIRECTION_LEFT) ||
-                (this.getCoords().getX() == bounds.getX() - 1 && direction == Direction.DIRECTION_RIGHT)) return false;
+                (this.getCoords().getX() == bounds.getX() - 1 && direction == Direction.DIRECTION_RIGHT)) return true;
 
-        return (this.getCoords().getY() != 0 || direction != Direction.DIRECTION_UP) &&
-                (this.getCoords().getY() != bounds.getY() - 1 || direction != Direction.DIRECTION_DOWN);
+        return (this.getCoords().getY() == 0 && direction == Direction.DIRECTION_UP) ||
+                (this.getCoords().getY() == bounds.getY() - 1 && direction == Direction.DIRECTION_DOWN);
+    }
+
+    public abstract boolean sameType(Organism other);
+
+    protected void checkIfCollides(Coordinates newCords) {
+        if (this.getOrigin().getOrganism(newCords) == null) {
+            this.getOrigin().changeOrganisms(newCords, this);
+            this.getCoords().setCoords(newCords);
+        } else {
+            this.getOrigin().getOrganism(newCords).collision(this);
+        }
     }
 }

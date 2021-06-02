@@ -3,9 +3,9 @@ package com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Sheep;
 import com.github.buzeqq.wordlsimulator.GUI.GUIField.GUIField;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Animal;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Organism;
 import com.github.buzeqq.wordlsimulator.World.World;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class Sheep extends Animal {
@@ -29,5 +29,10 @@ public class Sheep extends Animal {
     @Override
     public final String toString() {
         return "Sheep: " + this.getCoords() + " initiative: " + this.getInitiative() + " strength: " + this.getStrength();
+    }
+
+    @Override
+    public final boolean sameType(Organism other) {
+        return other instanceof Sheep;
     }
 }

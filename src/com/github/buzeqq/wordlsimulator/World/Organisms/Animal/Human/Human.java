@@ -1,14 +1,13 @@
 package com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Human;
 
-import com.github.buzeqq.wordlsimulator.GUI.GUI;
 import com.github.buzeqq.wordlsimulator.GUI.GUIField.GUIField;
 import com.github.buzeqq.wordlsimulator.GUI.GUIWorld.GUIWorld;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
 import com.github.buzeqq.wordlsimulator.Utilities.Direction;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Animal;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Organism;
 import com.github.buzeqq.wordlsimulator.World.World;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class Human extends Animal {
@@ -34,17 +33,17 @@ public class Human extends Animal {
 
     @Override
     public final void move() {
-        Direction direction = guiWorld.getDirection();
-        if (direction == null || !this.validateMove(direction)) return;
+        Direction direction = this.guiWorld.getDirection();
+        this.guiWorld.setDirection(null);
+        if (direction == null || this.validateMove(direction)) return;
 
-        Coordinates newCords = new Coordinates(this.getCoords().getX(), this.getCoords().getY(), direction);
-        if (this.getOrigin().getOrganism(newCords) == null) {
-            this.getOrigin().changeOrganisms(newCords, this);
-            this.getCoords().setCoords(newCords);
-        }
-        // else perform collision
+        this.checkIfCollides(new Coordinates(this.getCoords().getX(), this.getCoords().getY(), direction));
 
-        this.getOlder();
+    }
+
+    @Override
+    public final boolean sameType(Organism other) {
+        return other instanceof Human;
     }
 
     @Override
