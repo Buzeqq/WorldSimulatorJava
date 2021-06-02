@@ -14,9 +14,9 @@ public abstract class Plant extends Organism {
     }
 
     @Override
-    public final void makeAction() {
+    public void makeAction() {
         Random chance = new Random();
-        if (chance.nextInt(2) == 0) this.spread();
+        if (chance.nextInt(4) == 0) this.spread();
         this.getOlder();
     }
 

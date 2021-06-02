@@ -6,6 +6,7 @@ import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Human.Human;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Sheep.Sheep;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Wolf.Wolf;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Organism;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.Dandelion.Dandelion;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.Grass.Grass;
 
 import java.util.*;
@@ -19,13 +20,15 @@ public class World {
         this.organisms = new HashMap<>();
 
         // Human
-        this.born(new Human(this.getRandomFreeCoords(), this, guiWorld));
+        // this.born(new Human(this.getRandomFreeCoords(), this, guiWorld));
 
         // Animals
+        // this.born(new Sheep(this.getRandomFreeCoords(), this));
         this.born(new Sheep(this.getRandomFreeCoords(), this));
 
         //Plants
         this.born(new Grass(this.getRandomFreeCoords(), this));
+        this.born(new Dandelion(this.getRandomFreeCoords(), this));
 
         this.printOrganisms();
     }

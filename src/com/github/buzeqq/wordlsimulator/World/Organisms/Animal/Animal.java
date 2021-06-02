@@ -33,7 +33,6 @@ public abstract class Animal extends Organism {
     @Override
     public void collision(Organism other) {
         if (this.sameType(other)) {
-            //if (this.equals(other)) return;
             this.breed((Animal)other);
         } else {
             super.collision(other);
