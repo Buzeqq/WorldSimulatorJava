@@ -3,6 +3,7 @@ package com.github.buzeqq.wordlsimulator.World.Organisms;
 import com.github.buzeqq.wordlsimulator.GUI.GUIField.GUIField;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
 import com.github.buzeqq.wordlsimulator.Utilities.Direction;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Animal;
 import com.github.buzeqq.wordlsimulator.World.World;
 
 public abstract class Organism {
@@ -22,6 +23,10 @@ public abstract class Organism {
 
     public final int getStrength() {
         return this.strength;
+    }
+
+    public final void setStrength(final int strength) {
+        this.strength = strength;
     }
 
     public final Coordinates getCoords() {
@@ -59,7 +64,7 @@ public abstract class Organism {
 
     public abstract void makeAction();
 
-    public void collision(Organism other) {
+    public void collision(Animal other) {
         if (other.getStrength() >= this.getStrength()) {
             this.die();
             other.getOrigin().changeOrganisms(this.getCoords(), other);
@@ -82,7 +87,7 @@ public abstract class Organism {
     public abstract Organism getNew(Coordinates coords);
 
     private final int initiative;
-    private final int strength;
+    private int strength;
     private int age;
     private final Coordinates coords;
     private final World origin;

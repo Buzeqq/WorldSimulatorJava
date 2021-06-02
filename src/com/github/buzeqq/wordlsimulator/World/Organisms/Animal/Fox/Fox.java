@@ -20,16 +20,14 @@ public class Fox extends Animal {
             this.getOrigin().changeOrganisms(newCords, this);
             this.getCoords().setCoords(newCords);
         } else {
-            if (this.getOrigin().getOrganism(newCords).getStrength() > this.getStrength()) {
-                this.move();
-            } else {
+            if (this.getOrigin().getOrganism(newCords).getStrength() <= this.getStrength()) {
                 this.getOrigin().getOrganism(newCords).collision(this);
             }
         }
     }
 
     @Override
-    public boolean sameType(Organism other) {
+    public boolean sameType(Animal other) {
         return other instanceof Fox;
     }
 

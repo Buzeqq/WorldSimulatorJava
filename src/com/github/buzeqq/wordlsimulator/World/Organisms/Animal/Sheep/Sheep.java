@@ -32,7 +32,7 @@ public class Sheep extends Animal {
     }
 
     @Override
-    public final boolean sameType(Organism other) {
+    public final boolean sameType(Animal other) {
         return other instanceof Sheep;
     }
 

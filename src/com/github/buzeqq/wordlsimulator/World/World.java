@@ -4,9 +4,12 @@ import com.github.buzeqq.wordlsimulator.GUI.GUIWorld.GUIWorld;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Fox.Fox;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Human.Human;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Sheep.Sheep;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Wolf.Wolf;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Organism;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.Dandelion.Dandelion;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.Grass.Grass;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.Guarana.Guarana;
 
 import java.util.*;
 
@@ -22,16 +25,20 @@ public class World {
         this.born(new Human(this.getRandomFreeCoords(), this, guiWorld));
 
         // Animals
-        // this.born(new Sheep(this.getRandomFreeCoords(), this));
-        // this.born(new Sheep(this.getRandomFreeCoords(), this));
+        this.born(new Sheep(this.getRandomFreeCoords(), this));
+        this.born(new Sheep(this.getRandomFreeCoords(), this));
         this.born(new Fox(this.getRandomFreeCoords(), this));
-        // this.born(new Fox(this.getRandomFreeCoords(), this));
-        // this.born(new Wolf(this.getRandomFreeCoords(), this));
-
+        this.born(new Fox(this.getRandomFreeCoords(), this));
+        this.born(new Wolf(this.getRandomFreeCoords(), this));
+        this.born(new Wolf(this.getRandomFreeCoords(), this));
 
         //Plants
         this.born(new Grass(this.getRandomFreeCoords(), this));
+        this.born(new Grass(this.getRandomFreeCoords(), this));
         this.born(new Dandelion(this.getRandomFreeCoords(), this));
+        this.born(new Dandelion(this.getRandomFreeCoords(), this));
+        this.born(new Guarana(this.getRandomFreeCoords(), this));
+        this.born(new Guarana(this.getRandomFreeCoords(), this));
 
         this.printOrganisms();
     }
@@ -73,10 +80,7 @@ public class World {
     private Coordinates getRandomFreeCoords() {
         Coordinates coords = Coordinates.getRandomCoordinates(bounds.getX(), bounds.getY());
         if (this.getOrganism(coords) != null) return this.getRandomFreeCoords();
-        else {
-            //System.out.print("coords: " + coords.getX() + ", " + coords.getY() + "\n");
-            return coords;
-        }
+        else return coords;
     }
 
     public final boolean validateCoords(Coordinates coords) {
