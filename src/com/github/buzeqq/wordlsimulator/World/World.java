@@ -13,6 +13,7 @@ import com.github.buzeqq.wordlsimulator.World.Organisms.Organism;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.Dandelion.Dandelion;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.Grass.Grass;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.Guarana.Guarana;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.WolfBerries.WolfBerries;
 
 import java.util.*;
 
@@ -30,20 +31,30 @@ public class World {
         this.born(new Human(this.getRandomFreeCoords(), this, guiWorld));
 
         // Animals
+        /*this.born(new Sheep(this.getRandomFreeCoords(), this));
         this.born(new Sheep(this.getRandomFreeCoords(), this));
         this.born(new Sheep(this.getRandomFreeCoords(), this));
         this.born(new Fox(this.getRandomFreeCoords(), this));
         this.born(new Fox(this.getRandomFreeCoords(), this));
+        this.born(new Fox(this.getRandomFreeCoords(), this));
         this.born(new Wolf(this.getRandomFreeCoords(), this));
         this.born(new Wolf(this.getRandomFreeCoords(), this));
+        this.born(new Wolf(this.getRandomFreeCoords(), this));*/
 
         //Plants
+        /*this.born(new Grass(this.getRandomFreeCoords(), this));
+        this.born(new Grass(this.getRandomFreeCoords(), this));
         this.born(new Grass(this.getRandomFreeCoords(), this));
         this.born(new Grass(this.getRandomFreeCoords(), this));
         this.born(new Dandelion(this.getRandomFreeCoords(), this));
         this.born(new Dandelion(this.getRandomFreeCoords(), this));
+        this.born(new Dandelion(this.getRandomFreeCoords(), this));
+        this.born(new Dandelion(this.getRandomFreeCoords(), this));
         this.born(new Guarana(this.getRandomFreeCoords(), this));
         this.born(new Guarana(this.getRandomFreeCoords(), this));
+        this.born(new Guarana(this.getRandomFreeCoords(), this));
+        this.born(new Guarana(this.getRandomFreeCoords(), this));*/
+        this.born(new WolfBerries(this.getRandomFreeCoords(), this));
 
         this.printOrganisms();
     }

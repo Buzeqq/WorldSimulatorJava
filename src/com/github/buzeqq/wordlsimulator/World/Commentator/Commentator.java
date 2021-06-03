@@ -3,6 +3,7 @@ package com.github.buzeqq.wordlsimulator.World.Commentator;
 import com.github.buzeqq.wordlsimulator.GUI.GUIComments.GUIComments;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Animal;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Fox.Fox;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Organism;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.Plant;
 
@@ -53,5 +54,13 @@ public class Commentator {
 
     public void buff(Animal animal) {
         this.addComment(animal + " has buffed its strength");
+    }
+
+    public void foxSmell(Fox fox) {
+        this.addComment(fox + " missed the fight and moved to the next free space");
+    }
+
+    public void poisoned(Animal other) {
+        this.addComment(other + " was poisoned by wolf berries");
     }
 }

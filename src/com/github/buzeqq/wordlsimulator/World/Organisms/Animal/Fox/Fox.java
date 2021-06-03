@@ -22,6 +22,9 @@ public class Fox extends Animal {
         } else {
             if (this.getOrigin().getOrganism(newCords).getStrength() <= this.getStrength()) {
                 this.getOrigin().getOrganism(newCords).collision(this);
+            } else {
+                this.getOrigin().getCommentator().foxSmell(this);
+                this.getOrigin().changeOrganisms(this.getFreeCoordsNextTo(),this);
             }
         }
     }
