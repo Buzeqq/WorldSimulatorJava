@@ -67,4 +67,8 @@ public class Commentator {
     public void block(Animal other) {
         this.addComment("Turtle managed to block the attack from " + other);
     }
+
+    public void killNeighbours(Animal animal) {
+        this.addComment(animal + " was in the field of fire Sosnowskys hogweed");
+    }
 }
