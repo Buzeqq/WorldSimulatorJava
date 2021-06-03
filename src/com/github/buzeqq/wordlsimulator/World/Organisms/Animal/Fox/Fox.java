@@ -17,6 +17,7 @@ public class Fox extends Animal {
     @Override
     protected final void checkIfCollides(Coordinates newCords) {
         if (this.getOrigin().getOrganism(newCords) == null) {
+            this.getOrigin().getCommentator().move(this, newCords);
             this.getOrigin().changeOrganisms(newCords, this);
             this.getCoords().setCoords(newCords);
         } else {
@@ -25,6 +26,7 @@ public class Fox extends Animal {
             } else {
                 this.getOrigin().getCommentator().foxSmell(this);
                 Coordinates coordinates = this.getFreeCoordsNextTo();
+                if (coordinates == null) return;
                 this.getOrigin().changeOrganisms(coordinates,this);
                 this.getCoords().setCoords(coordinates);
             }

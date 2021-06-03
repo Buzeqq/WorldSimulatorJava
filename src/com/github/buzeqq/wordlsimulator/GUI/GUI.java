@@ -1,6 +1,7 @@
 package com.github.buzeqq.wordlsimulator.GUI;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

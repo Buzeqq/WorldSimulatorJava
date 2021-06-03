@@ -68,6 +68,7 @@ public abstract class Organism {
         this.getOrigin().getCommentator().confrontation(this, other);
         if (other.getStrength() >= this.getStrength()) {
             this.die();
+            this.getOrigin().getCommentator().move(other, this.getCoords());
             other.getOrigin().changeOrganisms(this.getCoords(), other);
             other.getCoords().setCoords(this.getCoords());
         } else {

@@ -8,6 +8,7 @@ import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Animal;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Fox.Fox;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Human.Human;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Sheep.Sheep;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Turtle.Turtle;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Wolf.Wolf;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Organism;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.Dandelion.Dandelion;
@@ -41,6 +42,7 @@ public class World {
         this.born(new Wolf(this.getRandomFreeCoords(), this));
         this.born(new Wolf(this.getRandomFreeCoords(), this));*/
         this.born(new Fox(this.getRandomFreeCoords(), this));
+        this.born(new Turtle(this.getRandomFreeCoords(), this));
 
         //Plants
         /*this.born(new Grass(this.getRandomFreeCoords(), this));
@@ -58,7 +60,7 @@ public class World {
         this.born(new WolfBerries(this.getRandomFreeCoords(), this));
         this.born(new WolfBerries(this.getRandomFreeCoords(), this));
         this.born(new WolfBerries(this.getRandomFreeCoords(), this));*/
-        this.born(new WolfBerries(this.getRandomFreeCoords(), this));
+        //this.born(new WolfBerries(this.getRandomFreeCoords(), this));
 
         this.printOrganisms();
     }

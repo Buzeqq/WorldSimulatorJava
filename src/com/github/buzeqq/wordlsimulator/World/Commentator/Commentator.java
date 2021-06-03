@@ -63,4 +63,8 @@ public class Commentator {
     public void poisoned(Animal other) {
         this.addComment(other + " was poisoned by wolf berries");
     }
+
+    public void block(Animal other) {
+        this.addComment("Turtle managed to block the attack from " + other);
+    }
 }
