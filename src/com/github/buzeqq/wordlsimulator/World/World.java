@@ -4,7 +4,6 @@ import com.github.buzeqq.wordlsimulator.GUI.GUIComments.GUIComments;
 import com.github.buzeqq.wordlsimulator.GUI.GUIWorld.GUIWorld;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
 import com.github.buzeqq.wordlsimulator.World.Commentator.Commentator;
-import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Animal;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Antelope.Antelope;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.CyberSheep.CyberSheep;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Fox.Fox;
@@ -55,7 +54,7 @@ public class World {
         this.born(new CyberSheep(this.getRandomFreeCoords(), this));
         this.born(new CyberSheep(this.getRandomFreeCoords(), this));
 
-        //Plants
+        // Plants
         this.born(new Grass(this.getRandomFreeCoords(), this));
         this.born(new Grass(this.getRandomFreeCoords(), this));
         this.born(new Grass(this.getRandomFreeCoords(), this));
@@ -86,7 +85,7 @@ public class World {
         list.sort((o1, o2) -> o1.getValue().compareTo(o2.getValue()));
 
         for (Map.Entry<Coordinates, Organism> organism : list) {
-            if (organism.getValue().isDead()) continue; // not sure if dead organisms are really dead, because we change the hashmap not the list
+            if (organism.getValue().isDead()) continue;
             organism.getValue().makeAction();
         }
 

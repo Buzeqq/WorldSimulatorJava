@@ -32,6 +32,13 @@ public class Human extends Animal {
     }
 
     @Override
+    public final void makeAction() {
+        if (this.guiWorld.getActivated()) this.fullBurn();
+        this.move();
+        this.getOlder();
+    }
+
+    @Override
     public final void move() {
         Direction direction = this.guiWorld.getDirection();
         this.guiWorld.setDirection(null);
@@ -53,5 +60,14 @@ public class Human extends Animal {
     @Override
     public final Organism getNew(Coordinates coords) {
         return new Human(coords, this.getOrigin(), this.guiWorld);
+    }
+
+    private void fullBurn() {
+        this.getOrigin().getCommentator().fullBurn();
+        for (Direction direction : Direction.values()) {
+            Organism organism = this.getOrigin().getOrganism(new Coordinates(this.getCoords(), direction));
+            if (organism != null) organism.die();
+        }
+        this.guiWorld.resetActivated();
     }
 }

@@ -79,4 +79,8 @@ public class Commentator {
     public void targetLocked(Coordinates targetLocked) {
         this.addComment("Cyber sheep found its target at " + targetLocked);
     }
+
+    public void fullBurn() {
+        this.addComment("Human is burning everything around him down...");
+    }
 }

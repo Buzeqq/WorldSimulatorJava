@@ -23,6 +23,7 @@ public class GUI extends JFrame implements ActionListener {
     private final Action rightAction;
     private final Action downAction;
     private final Action leftAction;
+    private final Action specialAbility;
 
     public GUI(final int x, final int y) {
         this.setTitle("World simulator");
@@ -38,6 +39,7 @@ public class GUI extends JFrame implements ActionListener {
         this.rightAction = new RightAction();
         this.downAction = new DownAction();
         this.leftAction = new LeftAction();
+        this.specialAbility = new HumanSpecialAbility();
 
         worldPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "upAction");
         worldPane.getActionMap().put("upAction", upAction);
@@ -50,6 +52,9 @@ public class GUI extends JFrame implements ActionListener {
 
         worldPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "leftAction");
         worldPane.getActionMap().put("leftAction", leftAction);
+
+        worldPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("X"), "specialAbility");
+        worldPane.getActionMap().put("specialAbility", specialAbility);
 
         JScrollPane worldScroll = new JScrollPane(worldPane);
         worldScroll.setPreferredSize(new Dimension(600, 600));
@@ -141,6 +146,13 @@ public class GUI extends JFrame implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             worldPane.setDirection(Direction.DIRECTION_LEFT);
+        }
+    }
+
+    public class HumanSpecialAbility extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            worldPane.activateAbility();
         }
     }
 }

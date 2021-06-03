@@ -24,7 +24,7 @@ public abstract class Animal extends Organism {
     }
 
     @Override
-    public final void makeAction() {
+    public void makeAction() {
         this.move();
         this.getOlder();
     }

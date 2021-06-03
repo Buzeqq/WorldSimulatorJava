@@ -1,6 +1,5 @@
 package com.github.buzeqq.wordlsimulator.GUI.GUIWorld;
 
-import com.github.buzeqq.wordlsimulator.GUI.GUIComments.GUIComments;
 import com.github.buzeqq.wordlsimulator.GUI.GUIField.GUIField;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
 import com.github.buzeqq.wordlsimulator.Utilities.Direction;
@@ -13,6 +12,7 @@ import java.awt.*;
 public class GUIWorld extends JPanel {
 
     private Direction direction;
+    private boolean activated = false;
 
     public GUIWorld(final int x, final int y) {
         this.setLayout(new GridLayout(x, y));
@@ -54,5 +54,17 @@ public class GUIWorld extends JPanel {
 
     public final Direction getDirection() {
         return this.direction;
+    }
+
+    public final void activateAbility() {
+        activated = true;
+    }
+
+    public final boolean getActivated() {
+        return this.activated;
+    }
+
+    public final void resetActivated() {
+        this.activated = false;
     }
 }
