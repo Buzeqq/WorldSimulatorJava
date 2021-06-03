@@ -5,6 +5,7 @@ import com.github.buzeqq.wordlsimulator.GUI.GUIWorld.GUIWorld;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
 import com.github.buzeqq.wordlsimulator.World.Commentator.Commentator;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Animal;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Antelope.Antelope;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Fox.Fox;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Human.Human;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Sheep.Sheep;
@@ -45,6 +46,9 @@ public class World {
         this.born(new Turtle(this.getRandomFreeCoords(), this));
         this.born(new Turtle(this.getRandomFreeCoords(), this));
         this.born(new Turtle(this.getRandomFreeCoords(), this));
+        this.born(new Antelope(this.getRandomFreeCoords(), this));
+        this.born(new Antelope(this.getRandomFreeCoords(), this));
+        this.born(new Antelope(this.getRandomFreeCoords(), this));
 
         //Plants
         this.born(new Grass(this.getRandomFreeCoords(), this));

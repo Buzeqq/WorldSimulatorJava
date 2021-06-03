@@ -71,4 +71,8 @@ public class Commentator {
     public void killNeighbours(Animal animal) {
         this.addComment(animal + " was in the field of fire Sosnowskys hogweed");
     }
+
+    public void escape(Animal other) {
+        this.addComment("Antelope managed to escape from fight with " + other);
+    }
 }

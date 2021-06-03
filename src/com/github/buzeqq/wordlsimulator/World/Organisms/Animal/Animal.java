@@ -47,13 +47,17 @@ public abstract class Animal extends Organism {
     }
 
     protected boolean validateMove(Direction direction) {
+        return this.validateMove(this.getCoords(), direction);
+    }
+
+    protected boolean validateMove( Coordinates coordinates, Direction direction) {
         Coordinates bounds = this.getOrigin().getBounds();
 
-        if ((this.getCoords().getX() == 0 && direction == Direction.DIRECTION_LEFT) ||
-                (this.getCoords().getX() == bounds.getX() - 1 && direction == Direction.DIRECTION_RIGHT)) return true;
+        if ((coordinates.getX() == 0 && direction == Direction.DIRECTION_LEFT) ||
+                coordinates.getX() == bounds.getX() - 1 && direction == Direction.DIRECTION_RIGHT) return true;
 
-        return (this.getCoords().getY() == 0 && direction == Direction.DIRECTION_UP) ||
-                (this.getCoords().getY() == bounds.getY() - 1 && direction == Direction.DIRECTION_DOWN);
+        return ((coordinates.getY() == 0 && direction == Direction.DIRECTION_UP) ||
+                (coordinates.getY() == bounds.getY() - 1 && direction == Direction.DIRECTION_DOWN));
     }
 
     public abstract boolean sameType(Animal other);
