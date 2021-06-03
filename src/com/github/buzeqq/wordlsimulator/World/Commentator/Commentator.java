@@ -75,4 +75,8 @@ public class Commentator {
     public void escape(Animal other) {
         this.addComment("Antelope managed to escape from fight with " + other);
     }
+
+    public void targetLocked(Coordinates targetLocked) {
+        this.addComment("Cyber sheep found its target at " + targetLocked);
+    }
 }

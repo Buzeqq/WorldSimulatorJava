@@ -4,6 +4,7 @@ import com.github.buzeqq.wordlsimulator.GUI.GUIField.GUIField;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
 import com.github.buzeqq.wordlsimulator.Utilities.Direction;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Animal;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.CyberSheep.CyberSheep;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Organism;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.Plant;
 import com.github.buzeqq.wordlsimulator.World.World;
@@ -25,7 +26,13 @@ public class SosnowskysHogweed extends Plant {
     @Override
     public final void collision(Animal other) {
         this.die();
-        other.die(); // TODO if not CyberSheep
+        if (!(other instanceof CyberSheep)) {
+            other.die();
+            return;
+        }
+
+        other.getOrigin().changeOrganisms(this.getCoords(), other);
+        other.getCoords().setCoords(this.getCoords());
     }
 
     @Override
@@ -56,7 +63,7 @@ public class SosnowskysHogweed extends Plant {
             Organism organism = this.getOrigin().getOrganism(coordinates);
 
             if (organism == null) return;
-            if (organism instanceof Animal) { // TODO remember about CyberSheep
+            if (organism instanceof Animal && !(organism instanceof CyberSheep)) {
                 this.getOrigin().getCommentator().killNeighbours((Animal)organism);
                 organism.die();
             }

@@ -70,6 +70,10 @@ public class Coordinates {
         return new Coordinates(random.nextInt(upperboundX), random.nextInt(upperboundY));
     }
 
+    static public int calculateDistance(final Coordinates coordinates1, final Coordinates coordinates2) {
+        return Math.abs(coordinates1.x - coordinates2.x) + Math.abs(coordinates1.y - coordinates2.y);
+    }
+
     @Override
     public final String toString() {
         return "Coordinates (" + this.x + ", " + this.y + ")";

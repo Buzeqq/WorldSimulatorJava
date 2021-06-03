@@ -6,6 +6,7 @@ import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
 import com.github.buzeqq.wordlsimulator.World.Commentator.Commentator;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Animal;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Antelope.Antelope;
+import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.CyberSheep.CyberSheep;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Fox.Fox;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Human.Human;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Sheep.Sheep;
@@ -19,6 +20,7 @@ import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.SosnowskysHogweed.
 import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.WolfBerries.WolfBerries;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class World {
     private final HashMap<Coordinates, Organism> organisms;
@@ -49,6 +51,9 @@ public class World {
         this.born(new Antelope(this.getRandomFreeCoords(), this));
         this.born(new Antelope(this.getRandomFreeCoords(), this));
         this.born(new Antelope(this.getRandomFreeCoords(), this));
+        this.born(new CyberSheep(this.getRandomFreeCoords(), this));
+        this.born(new CyberSheep(this.getRandomFreeCoords(), this));
+        this.born(new CyberSheep(this.getRandomFreeCoords(), this));
 
         //Plants
         this.born(new Grass(this.getRandomFreeCoords(), this));
@@ -133,5 +138,24 @@ public class World {
             System.out.println(organism);
         }
         System.out.println("-----------------------------");
+    }
+
+    public final Coordinates getClosestHogweed(Coordinates coords) {
+       List<Organism> potentialTargets = this.organisms.values().stream()
+               .filter(organism -> organism instanceof SosnowskysHogweed)
+               .collect(Collectors.toList());
+
+       Organism minOrganism = null;
+       int min = Integer.MAX_VALUE;
+       for (Organism organism : potentialTargets) {
+           System.out.println(organism);
+           final int distance = Coordinates.calculateDistance(organism.getCoords(), coords);
+           if (distance < min) {
+               min = distance;
+               minOrganism = organism;
+           }
+       }
+
+       return minOrganism == null ? null : minOrganism.getCoords();
     }
 }
