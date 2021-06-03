@@ -40,6 +40,7 @@ public class World {
         this.born(new Wolf(this.getRandomFreeCoords(), this));
         this.born(new Wolf(this.getRandomFreeCoords(), this));
         this.born(new Wolf(this.getRandomFreeCoords(), this));*/
+        this.born(new Fox(this.getRandomFreeCoords(), this));
 
         //Plants
         /*this.born(new Grass(this.getRandomFreeCoords(), this));
@@ -53,7 +54,10 @@ public class World {
         this.born(new Guarana(this.getRandomFreeCoords(), this));
         this.born(new Guarana(this.getRandomFreeCoords(), this));
         this.born(new Guarana(this.getRandomFreeCoords(), this));
-        this.born(new Guarana(this.getRandomFreeCoords(), this));*/
+        this.born(new Guarana(this.getRandomFreeCoords(), this));
+        this.born(new WolfBerries(this.getRandomFreeCoords(), this));
+        this.born(new WolfBerries(this.getRandomFreeCoords(), this));
+        this.born(new WolfBerries(this.getRandomFreeCoords(), this));*/
         this.born(new WolfBerries(this.getRandomFreeCoords(), this));
 
         this.printOrganisms();

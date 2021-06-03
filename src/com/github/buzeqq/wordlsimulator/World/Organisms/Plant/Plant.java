@@ -33,10 +33,10 @@ public abstract class Plant extends Organism {
     }
 
     protected void spread() {
-        this.getOrigin().getCommentator().spread(this);
         Coordinates coords = this.getFreeCoordsNextTo();
         if (coords == null) return;
 
+        this.getOrigin().getCommentator().spread(this);
         this.getOrigin().born(this.getNew(coords));
     }
 

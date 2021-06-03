@@ -24,7 +24,9 @@ public class Fox extends Animal {
                 this.getOrigin().getOrganism(newCords).collision(this);
             } else {
                 this.getOrigin().getCommentator().foxSmell(this);
-                this.getOrigin().changeOrganisms(this.getFreeCoordsNextTo(),this);
+                Coordinates coordinates = this.getFreeCoordsNextTo();
+                this.getOrigin().changeOrganisms(coordinates,this);
+                this.getCoords().setCoords(coordinates);
             }
         }
     }
