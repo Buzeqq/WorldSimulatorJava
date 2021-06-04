@@ -16,6 +16,10 @@ public class CyberSheep extends Animal {
         super(coordinates, 11, 4, origin);
     }
 
+    public CyberSheep(String data, World origin) {
+        super(data, origin);
+    }
+
     @Override
     public final void move() {
         Coordinates targetLocked = this.getOrigin().getClosestHogweed(this.getCoords());

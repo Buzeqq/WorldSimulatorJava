@@ -74,6 +74,10 @@ public class Coordinates {
         return Math.abs(coordinates1.x - coordinates2.x) + Math.abs(coordinates1.y - coordinates2.y);
     }
 
+    static public Coordinates parseCoordinates(String s) {
+        return new Coordinates(Integer.parseInt(s.substring(0, s.indexOf(","))), Integer.parseInt(s.substring(s.indexOf(",") + 2)));
+    }
+
     @Override
     public final String toString() {
         return "Coordinates (" + this.x + ", " + this.y + ")";

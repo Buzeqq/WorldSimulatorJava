@@ -1,7 +1,6 @@
 package com.github.buzeqq.wordlsimulator.World;
 
-import com.github.buzeqq.wordlsimulator.GUI.GUIComments.GUIComments;
-import com.github.buzeqq.wordlsimulator.GUI.GUIWorld.GUIWorld;
+import com.github.buzeqq.wordlsimulator.GUI.GUI;
 import com.github.buzeqq.wordlsimulator.Utilities.Coordinates;
 import com.github.buzeqq.wordlsimulator.World.Commentator.Commentator;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Animal.Antelope.Antelope;
@@ -18,6 +17,12 @@ import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.Guarana.Guarana;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.SosnowskysHogweed.SosnowskysHogweed;
 import com.github.buzeqq.wordlsimulator.World.Organisms.Plant.WolfBerries.WolfBerries;
 
+import javax.swing.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,14 +30,16 @@ public class World {
     private final HashMap<Coordinates, Organism> organisms;
     private final Coordinates bounds;
     private final Commentator commentator;
+    private final GUI gui;
 
-    public World(final int x, final int y, GUIWorld guiWorld, GUIComments commentSection) {
+    public World(final int x, final int y, GUI gui) {
         this.bounds = new Coordinates(x, y);
         this.organisms = new HashMap<>();
-        this.commentator = new Commentator(commentSection);
+        this.commentator = new Commentator(gui.getCommentSection());
+        this.gui = gui;
 
         // Human
-        this.born(new Human(this.getRandomFreeCoords(), this, guiWorld));
+        this.born(new Human(this.getRandomFreeCoords(), this, gui.getWorldPane()));
 
         // Animals
         this.born(new Sheep(this.getRandomFreeCoords(), this));
@@ -156,5 +163,124 @@ public class World {
        }
 
        return minOrganism == null ? null : minOrganism.getCoords();
+    }
+
+    public final void save(File directory) {
+        if (directory == null) return;
+
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
+        String fileName = "Save:" + dateFormat.format(date.getTime()) + ".txt";
+        try {
+            String file = directory + File.separator + fileName;
+            File save = new File(file);
+            int errorCode;
+            if (save.createNewFile()) {
+                errorCode = 1;
+            } else {
+                JOptionPane.showMessageDialog(null, "File already exists.");
+                errorCode = 2;
+            }
+
+            this.writeSave(file);
+            if (errorCode != 1) throw new IOException();
+            else {
+                JOptionPane.showMessageDialog(null, "Successfully saved game!");
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(new JFrame(), "An error occurred. Try to chose another location.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void writeSave(String path) throws IOException {
+        System.out.println(path);
+        FileWriter fileWriter = new FileWriter(path);
+        fileWriter.write( "TURN:" + this.gui.getTurn() + "\n");
+        fileWriter.write("X:" + this.getBounds().getX() + "\nY:" + this.getBounds().getY() + "\n");
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Organism organism : this.organisms.values()) {
+            if (organism.isDead()) continue;
+            stringBuilder.append("o:").append(organism).append("\n");
+        }
+
+        stringBuilder.append("CommentSection:\n");
+        stringBuilder.append(this.gui.getCommentSectionContent());
+        fileWriter.write(String.valueOf(stringBuilder));
+        fileWriter.close();
+    }
+
+    public final void load(File path) {
+        this.organisms.clear();
+
+        try {
+            Scanner loadReader = new Scanner(path);
+
+            while (loadReader.hasNextLine()) {
+                String data = loadReader.nextLine();
+                if (data.startsWith("TURN:")) {
+                    this.setTurn(data);
+                } else if (data.startsWith("X:")) {
+                    this.setX(data);
+                } else if (data.startsWith("Y:")) {
+                    this.setY(data);
+                } else if (data.startsWith("o:")) {
+                    this.addOrganism(data);
+                } else if (data.startsWith("CommentSection:")) {
+                    this.readCommentSection(loadReader);
+                    break;
+                }
+            }
+
+            loadReader.close();
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(new JFrame(), "An error occurred while reading save file.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+
+    }
+
+    private void readCommentSection(Scanner loadReader) {
+        this.gui.getCommentSection().setText("");
+        while (loadReader.hasNextLine()) {
+            this.gui.getCommentSection().append(loadReader.nextLine() + "\n");
+        }
+    }
+
+    private void addOrganism(String data) throws FileNotFoundException {
+        data = data.substring(2);
+        System.out.println(data);
+        switch (data.substring(0, data.indexOf(":"))) {
+            case "Antelope" -> this.born(new Antelope(data, this));
+            case "Cyber sheep" -> this.born(new CyberSheep(data, this));
+            case "Fox"-> this.born(new Fox(data, this));
+            case "Human" -> this.born(new Human(data, this, this.gui.getWorldPane()));
+            case "Sheep" -> this.born(new Sheep(data, this));
+            case "Turtle" -> this.born(new Turtle(data, this));
+            case "Wolf" -> this.born(new Wolf(data, this));
+            case "Dandelion" -> this.born(new Dandelion(data, this));
+            case "Grass" -> this.born(new Grass(data, this));
+            case "Guarana" -> this.born(new Guarana(data, this));
+            case "Sosnowskys hogweed" -> this.born(new SosnowskysHogweed(data, this));
+            case "Wolf berries" -> this.born(new WolfBerries(data, this));
+            default -> throw new FileNotFoundException();
+        }
+    }
+
+    private void setY(String data) {
+        this.bounds.setY(Integer.parseInt(data.substring(2)));
+    }
+
+    private void setX(String data) {
+        this.bounds.setX(Integer.parseInt(data.substring(2)));
+    }
+
+    private void setTurn(String data) {
+        this.gui.setTurn(Integer.parseInt(data.substring(5)));
     }
 }

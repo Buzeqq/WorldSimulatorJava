@@ -15,6 +15,10 @@ public class WolfBerries extends Plant {
         super(coordinates, 99, origin);
     }
 
+    public WolfBerries(String data, World origin) {
+        super(data, origin);
+    }
+
     @Override
     public final GUIField print() {
         class JButtonWolfBerries extends GUIField {

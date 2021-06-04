@@ -17,6 +17,10 @@ public class SosnowskysHogweed extends Plant {
         super(coordinates, 10, origin);
     }
 
+    public SosnowskysHogweed(String data, World origin) {
+        super(data, origin);
+    }
+
     @Override
     public final void makeAction() {
         this.killAllNeighbours();

@@ -13,6 +13,10 @@ public abstract class Plant extends Organism {
         super(coords, 0, strength, origin);
     }
 
+    public Plant(String data, World origin) {
+        super(data, origin);
+    }
+
     @Override
     public void makeAction() {
         Random chance = new Random();

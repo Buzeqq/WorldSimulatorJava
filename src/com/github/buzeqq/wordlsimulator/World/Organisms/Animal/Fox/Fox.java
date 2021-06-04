@@ -14,6 +14,11 @@ public class Fox extends Animal {
         super(coordinates, 7, 3, origin);
     }
 
+    public Fox(String data, World origin) {
+        super(data, origin);
+    }
+
+
     @Override
     protected final void checkIfCollides(Coordinates newCords) {
         if (this.getOrigin().getOrganism(newCords) == null) {

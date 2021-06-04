@@ -15,6 +15,10 @@ public class Dandelion extends Plant {
         super(coordinates, 0, origin);
     }
 
+    public Dandelion(String data, World origin) {
+        super(data, origin);
+    }
+
     @Override
     public final GUIField print() {
         class JButtonDandelion extends GUIField {

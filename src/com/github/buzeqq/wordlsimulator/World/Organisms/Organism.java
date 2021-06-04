@@ -17,6 +17,21 @@ public abstract class Organism {
         this.dead = false;
     }
 
+    public Organism(final String data, final World origin) {
+        this.coords = Coordinates.parseCoordinates(data
+                .substring(data.lastIndexOf("Coordinates (") + 13, data.indexOf(")")));
+
+        this.initiative = Integer.parseInt(data.substring(data
+                .indexOf("initiative: ") + 12, data.indexOf(" strength:")));
+
+        this.strength = Integer.parseInt(data.substring(data
+                .indexOf("strength: ") + 10, data.indexOf(" age:")));
+
+        this.age = Integer.parseInt(data.substring(data.lastIndexOf("age: ") + 5));
+        this.origin = origin;
+        this.dead = false;
+    }
+
     public final int getInitiative() {
         return this.initiative;
     }

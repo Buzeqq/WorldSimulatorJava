@@ -15,6 +15,9 @@ public class Antelope extends Animal {
     public Antelope(Coordinates coordinates, World origin) {
         super(coordinates, 4, 4, origin);
     }
+    public Antelope(String data, World origin) {
+        super(data, origin);
+    }
 
     @Override
     public final void move() {

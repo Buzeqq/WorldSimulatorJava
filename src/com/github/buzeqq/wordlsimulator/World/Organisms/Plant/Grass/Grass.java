@@ -14,6 +14,10 @@ public class Grass extends Plant {
         super(coordinates, 0, origin);
     }
 
+    public Grass(String data, World origin) {
+        super(data, origin);
+    }
+
     @Override
     public GUIField print() {
         class JButtonGrass extends GUIField {

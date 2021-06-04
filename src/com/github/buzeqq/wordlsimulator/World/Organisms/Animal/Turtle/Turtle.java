@@ -15,6 +15,10 @@ public class Turtle extends Animal {
         super(coordinates, 1, 2, origin);
     }
 
+    public Turtle(String data, World origin) {
+        super(data, origin);
+    }
+
     @Override
     public final void move() {
         Random random = new Random();

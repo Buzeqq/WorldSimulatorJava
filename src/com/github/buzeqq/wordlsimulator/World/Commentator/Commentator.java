@@ -41,7 +41,7 @@ public class Commentator {
     }
 
     public void breed(Animal mother, Animal father) {
-        this.addComment(mother + " and " + father + " will try to breed");
+        this.addComment(mother + " and " + father + " will breed");
     }
 
     public void move(Animal animal, Coordinates coordinates) {

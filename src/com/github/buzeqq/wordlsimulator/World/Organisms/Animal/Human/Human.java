@@ -19,6 +19,11 @@ public class Human extends Animal {
         this.guiWorld = guiWorld;
     }
 
+    public Human(String data, World origin, GUIWorld worldPane) {
+        super(data, origin);
+        this.guiWorld = worldPane;
+    }
+
     @Override
     public final GUIField print() {
         class JButtonHuman extends GUIField {

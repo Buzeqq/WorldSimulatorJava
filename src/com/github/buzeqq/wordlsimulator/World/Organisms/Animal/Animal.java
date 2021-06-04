@@ -12,6 +12,10 @@ public abstract class Animal extends Organism {
         super(coords, initiative, strength, origin);
     }
 
+    public Animal(String data, World origin) {
+        super(data, origin);
+    }
+
     public void move() {
         Random random = new Random();
         Direction direction = Direction.values()[random.nextInt(4)];
@@ -32,7 +36,6 @@ public abstract class Animal extends Organism {
     @Override
     public void collision(Animal other) {
         if (this.sameType(other)) {
-            this.getOrigin().getCommentator().breed(this, other);
             this.breed(other);
         } else {
             super.collision(other);
@@ -43,6 +46,7 @@ public abstract class Animal extends Organism {
         Coordinates coordsNextTo = this.getFreeCoordsNextTo();
         if (coordsNextTo == null) coordsNextTo = other.getFreeCoordsNextTo();
         if (coordsNextTo == null) return;
+        this.getOrigin().getCommentator().breed(this, other);
         this.getOrigin().born(this.getNew(coordsNextTo));
     }
 

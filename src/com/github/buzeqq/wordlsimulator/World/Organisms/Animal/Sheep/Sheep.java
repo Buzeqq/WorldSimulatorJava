@@ -14,6 +14,10 @@ public class Sheep extends Animal {
         super(coords, 4, 4, origin);
     }
 
+    public Sheep(String data, World origin) {
+        super(data, origin);
+    }
+
     @Override
     public final GUIField print() {
         class JButtonSheep extends GUIField {

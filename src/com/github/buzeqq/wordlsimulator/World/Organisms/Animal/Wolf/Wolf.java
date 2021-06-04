@@ -13,6 +13,10 @@ public class Wolf extends Animal {
         super(coordinates, 5, 9, origin);
     }
 
+    public Wolf(String data, World origin) {
+        super(data, origin);
+    }
+
     @Override
     public final GUIField print() {
         class JButtonWolf extends GUIField {
