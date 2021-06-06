@@ -11,19 +11,19 @@ import java.awt.*;
 
 public class Guarana extends Plant {
 
-    public Guarana(Coordinates coordinates, World origin) {
+    public Guarana(final Coordinates coordinates, final World origin) {
         super(coordinates, 0, origin);
     }
 
-    public Guarana(String data, World origin) {
+    public Guarana(final String data, final World origin) {
         super(data, origin);
     }
 
     @Override
-    public final GUIField print() {
+    public final GUIField print(final int x, final int y, final World origin) {
         class JButtonGuarana extends GUIField {
             public JButtonGuarana() {
-                super("G");
+                super("G", x, y, origin);
                 this.setBackground(new Color(255,99,71));
             }
         }
@@ -32,7 +32,7 @@ public class Guarana extends Plant {
     }
 
     @Override
-    public final Organism getNew(Coordinates coords) {
+    public final Organism getNew(final Coordinates coords) {
         return new Guarana(coords, this.getOrigin());
     }
 

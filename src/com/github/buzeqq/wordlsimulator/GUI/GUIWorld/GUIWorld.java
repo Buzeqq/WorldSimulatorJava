@@ -11,22 +11,19 @@ import java.awt.*;
 
 public class GUIWorld extends JPanel {
 
-    private Direction direction;
-    private boolean activated = false;
-
-    public GUIWorld(final int x, final int y) {
+    public GUIWorld(final int x, final int y, final World world) {
         this.setLayout(new GridLayout(x, y));
 
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                this.add(new GUIField(""));
+                this.add(new GUIField("", x, y, world));
             }
         }
 
         this.setVisible(true);
     }
 
-    public final void printWorld(World world) {
+    public final void printWorld(final World world) {
         for (Component c : this.getComponents()) {
             this.remove(c);
         }
@@ -37,8 +34,8 @@ public class GUIWorld extends JPanel {
                 GUIField field;
 
                 if (organism != null) {
-                    field = organism.print();
-                } else field = new GUIField("");
+                    field = organism.print(x, y, world);
+                } else field = new GUIField("", x, y, world);
 
                 this.add(field);
             }
@@ -48,7 +45,7 @@ public class GUIWorld extends JPanel {
         this.repaint();
     }
 
-    public final void setDirection(Direction direction) {
+    public final void setDirection(final Direction direction) {
         this.direction = direction;
     }
 
@@ -67,4 +64,7 @@ public class GUIWorld extends JPanel {
     public final void resetActivated() {
         this.activated = false;
     }
+
+    private Direction direction;
+    private boolean activated = false;
 }

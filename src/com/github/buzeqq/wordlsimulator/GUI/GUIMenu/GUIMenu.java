@@ -4,10 +4,6 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 
 public class GUIMenu extends JMenuBar {
-    private final JMenuItem saveGame;
-    private final JMenuItem loadGame;
-    private final JMenuItem exitGame;
-
     public GUIMenu() {
         JMenu gameMenu = new JMenu("Game");
 
@@ -39,4 +35,8 @@ public class GUIMenu extends JMenuBar {
     public final JMenuItem getExit() {
         return this.exitGame;
     }
+
+    private final JMenuItem saveGame;
+    private final JMenuItem loadGame;
+    private final JMenuItem exitGame;
 }

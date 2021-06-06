@@ -11,19 +11,19 @@ import java.awt.*;
 
 public class WolfBerries extends Plant {
 
-    public WolfBerries(Coordinates coordinates, World origin) {
+    public WolfBerries(final Coordinates coordinates, final World origin) {
         super(coordinates, 99, origin);
     }
 
-    public WolfBerries(String data, World origin) {
+    public WolfBerries(final String data, final World origin) {
         super(data, origin);
     }
 
     @Override
-    public final GUIField print() {
+    public final GUIField print(final int x, final int y, final World origin) {
         class JButtonWolfBerries extends GUIField {
             public JButtonWolfBerries() {
-                super("W");
+                super("W", x, y, origin);
                 this.setBackground(Color.BLACK);
                 this.setForeground(Color.WHITE);
             }
@@ -40,7 +40,7 @@ public class WolfBerries extends Plant {
     }
 
     @Override
-    public final Organism getNew(Coordinates coords) {
+    public final Organism getNew(final Coordinates coords) {
         return new WolfBerries(coords, this.getOrigin());
     }
 

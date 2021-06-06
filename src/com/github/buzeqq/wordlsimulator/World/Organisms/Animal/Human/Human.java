@@ -14,21 +14,21 @@ public class Human extends Animal {
 
     private final GUIWorld guiWorld;
 
-    public Human(Coordinates coords, World origin, GUIWorld guiWorld) {
-        super(coords, 4, 5, origin);
+    public Human(final Coordinates coordinates, final World origin, final GUIWorld guiWorld) {
+        super(coordinates, 4, 5, origin);
         this.guiWorld = guiWorld;
     }
 
-    public Human(String data, World origin, GUIWorld worldPane) {
+    public Human(final String data, final World origin, final GUIWorld worldPane) {
         super(data, origin);
         this.guiWorld = worldPane;
     }
 
     @Override
-    public final GUIField print() {
+    public final GUIField print(final int x, final int y, final World origin) {
         class JButtonHuman extends GUIField {
             public JButtonHuman() {
-                super("H");
+                super("H", x, y, origin);
                 this.setBackground(Color.PINK);
             }
         }
@@ -53,7 +53,7 @@ public class Human extends Animal {
     }
 
     @Override
-    public final boolean sameType(Animal other) {
+    public final boolean sameType(final Animal other) {
         return other instanceof Human;
     }
 
@@ -63,8 +63,8 @@ public class Human extends Animal {
     }
 
     @Override
-    public final Organism getNew(Coordinates coords) {
-        return new Human(coords, this.getOrigin(), this.guiWorld);
+    public final Organism getNew(final Coordinates coordinates) {
+        return new Human(coordinates, this.getOrigin(), this.guiWorld);
     }
 
     private void fullBurn() {

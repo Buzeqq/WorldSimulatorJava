@@ -10,19 +10,19 @@ import java.awt.*;
 
 public class Sheep extends Animal {
 
-    public Sheep(Coordinates coords, World origin) {
-        super(coords, 4, 4, origin);
+    public Sheep(final Coordinates coordinates, final World origin) {
+        super(coordinates, 4, 4, origin);
     }
 
-    public Sheep(String data, World origin) {
+    public Sheep(final String data, final World origin) {
         super(data, origin);
     }
 
     @Override
-    public final GUIField print() {
+    public final GUIField print(final int x, final int y, final World origin) {
         class JButtonSheep extends GUIField {
             public JButtonSheep() {
-                super("S");
+                super("S", x, y, origin);
                 this.setBackground(Color.WHITE);
             }
         }
@@ -36,12 +36,12 @@ public class Sheep extends Animal {
     }
 
     @Override
-    public final boolean sameType(Animal other) {
+    public final boolean sameType(final Animal other) {
         return other instanceof Sheep;
     }
 
     @Override
-    public Organism getNew(Coordinates coords) {
-        return new Sheep(coords, this.getOrigin());
+    public Organism getNew(final Coordinates coordinates) {
+        return new Sheep(coordinates, this.getOrigin());
     }
 }

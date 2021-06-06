@@ -37,15 +37,15 @@ public class Turtle extends Animal {
     }
 
     @Override
-    public final boolean sameType(Animal other) {
+    public final boolean sameType(final Animal other) {
         return other instanceof Turtle;
     }
 
     @Override
-    public final GUIField print() {
+    public final GUIField print(final int x, final int y, final World origin) {
         class JButtonTurtle extends GUIField {
             public JButtonTurtle() {
-                super("T");
+                super("T", x, y, origin);
                 this.setBackground(new Color(124,252,0));
             }
         }
@@ -54,8 +54,8 @@ public class Turtle extends Animal {
     }
 
     @Override
-    public final Organism getNew(Coordinates coords) {
-        return new Turtle(coords, this.getOrigin());
+    public final Organism getNew(final Coordinates coordinates) {
+        return new Turtle(coordinates, this.getOrigin());
     }
 
     @Override

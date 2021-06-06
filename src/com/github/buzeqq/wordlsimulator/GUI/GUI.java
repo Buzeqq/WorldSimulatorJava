@@ -13,24 +13,23 @@ import com.github.buzeqq.wordlsimulator.Utilities.Direction;
 import com.github.buzeqq.wordlsimulator.World.World;
 
 public class GUI extends JFrame implements ActionListener {
-    private World world;
-    private final GUIWorld worldPane;
-    private GUIComments commentSection;
-    private final GUIMenu guiMenu;
-    private final JLabel lWorld;
-    private int turnCounter = 0;
-    private final JButton nextRound;
 
     public GUI(final int x, final int y) {
         this.setTitle("World simulator");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel main = new JPanel(new GridBagLayout());
+        final JPanel main = new JPanel(new GridBagLayout());
 
-        lWorld = new JLabel("Turn: 0");
-        main.add(lWorld, makeConstraints(0, 0, 1, 1, GridBagConstraints.FIRST_LINE_START));
-        worldPane = new GUIWorld(x, y);
+        this.lWorld = new JLabel("Turn: 0");
+        main.add(this.lWorld, makeConstraints(0, 0, 1, 1, GridBagConstraints.FIRST_LINE_START));
 
+        final JLabel author = new JLabel("Miłosz Chojnacki, 184934");
+        main.add(author, makeConstraints(1, 0, 1, 1, GridBagConstraints.FIRST_LINE_START));
+
+        this.lDirection = new JLabel("Direction: ");
+        main.add(this.lDirection, makeConstraints(2, 0, 1, 1, GridBagConstraints.FIRST_LINE_START));
+
+        this.worldPane = new GUIWorld(x, y, world);
         this.setKeyBindings();
         this.guiMenu = new GUIMenu();
         this.setJMenuBar(guiMenu);
@@ -38,8 +37,8 @@ public class GUI extends JFrame implements ActionListener {
 
         this.setWorldPane(main);
 
-        nextRound = new JButton("Next round!");
-        nextRound.addActionListener(this);
+        this.nextRound = new JButton("Next round!");
+        this.nextRound.addActionListener(this);
         main.add(nextRound, makeConstraints(20, 1, 1, 1, GridBagConstraints.FIRST_LINE_END));
 
         this.setCommentSection(main);
@@ -52,7 +51,7 @@ public class GUI extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-    private void setCommentSection(JPanel main) {
+    private void setCommentSection(final JPanel main) {
         JLabel lCommentSection = new JLabel("Comment section:");
         main.add(lCommentSection, makeConstraints(20, 2, 1, 1, GridBagConstraints.FIRST_LINE_END));
         this.commentSection = new GUIComments();
@@ -62,7 +61,7 @@ public class GUI extends JFrame implements ActionListener {
         main.add(scrollCommentSection, makeConstraints(20, 3, 1, 1, GridBagConstraints.FIRST_LINE_END));
     }
 
-    private void setWorldPane(JPanel main) {
+    private void setWorldPane(final JPanel main) {
         JScrollPane worldScroll = new JScrollPane(worldPane);
         worldScroll.setPreferredSize(new Dimension(600, 600));
         worldScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -132,7 +131,7 @@ public class GUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == nextRound) {
+        if (e.getSource() == this.nextRound) {
             this.nextTurn();
         } else if (e.getSource() == this.guiMenu.getSave()) {
             File directory = null;
@@ -164,7 +163,7 @@ public class GUI extends JFrame implements ActionListener {
             }
 
             this.world.load(saveFile);
-            this.worldPane.printWorld(world);
+            this.worldPane.printWorld(this.world);
             this.lWorld.setText("Turn: " + this.turnCounter);
 
         } else if (e.getSource() == this.guiMenu.getExit()) {
@@ -188,7 +187,7 @@ public class GUI extends JFrame implements ActionListener {
         return this.commentSection.getText();
     }
 
-    public void setTurn(int parseInt) {
+    public void setTurn(final int parseInt) {
         this.turnCounter = parseInt;
     }
 
@@ -196,6 +195,7 @@ public class GUI extends JFrame implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             worldPane.setDirection(Direction.DIRECTION_UP);
+            lDirection.setText("Direction: UP");
         }
     }
 
@@ -203,6 +203,7 @@ public class GUI extends JFrame implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             worldPane.setDirection(Direction.DIRECTION_RIGHT);
+            lDirection.setText("Direction: RIGHT");
         }
     }
 
@@ -210,6 +211,7 @@ public class GUI extends JFrame implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             worldPane.setDirection(Direction.DIRECTION_DOWN);
+            lDirection.setText("Direction: DOWN");
         }
     }
 
@@ -217,6 +219,7 @@ public class GUI extends JFrame implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             worldPane.setDirection(Direction.DIRECTION_LEFT);
+            lDirection.setText("Direction: LEFT");
         }
     }
 
@@ -233,4 +236,13 @@ public class GUI extends JFrame implements ActionListener {
             nextTurn();
         }
     }
+
+    private World world;
+    private final GUIWorld worldPane;
+    private GUIComments commentSection;
+    private final GUIMenu guiMenu;
+    private final JLabel lWorld;
+    private int turnCounter = 0;
+    private final JButton nextRound;
+    private final JLabel lDirection;
 }

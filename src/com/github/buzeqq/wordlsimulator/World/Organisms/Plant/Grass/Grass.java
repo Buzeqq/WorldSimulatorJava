@@ -10,19 +10,19 @@ import java.awt.*;
 
 public class Grass extends Plant {
 
-    public Grass(Coordinates coordinates, World origin) {
+    public Grass(final Coordinates coordinates, final World origin) {
         super(coordinates, 0, origin);
     }
 
-    public Grass(String data, World origin) {
+    public Grass(final String data, final World origin) {
         super(data, origin);
     }
 
     @Override
-    public GUIField print() {
+    public GUIField print(final int x, final int y, final World origin) {
         class JButtonGrass extends GUIField {
             public JButtonGrass() {
-                super("G");
+                super("G", x, y, origin);
                 this.setBackground(new Color(34, 139, 34));
             }
         }
@@ -31,7 +31,7 @@ public class Grass extends Plant {
     }
 
     @Override
-    public Organism getNew(Coordinates coords) {
+    public Organism getNew(final Coordinates coords) {
         return new Grass(coords, this.getOrigin());
     }
 

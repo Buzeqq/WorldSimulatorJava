@@ -13,11 +13,11 @@ import java.awt.*;
 
 public class SosnowskysHogweed extends Plant {
 
-    public SosnowskysHogweed(Coordinates coordinates, World origin) {
+    public SosnowskysHogweed(final Coordinates coordinates, final World origin) {
         super(coordinates, 10, origin);
     }
 
-    public SosnowskysHogweed(String data, World origin) {
+    public SosnowskysHogweed(final String data, final World origin) {
         super(data, origin);
     }
 
@@ -40,10 +40,10 @@ public class SosnowskysHogweed extends Plant {
     }
 
     @Override
-    public final GUIField print() {
+    public final GUIField print(final int x, final int y, final World origin) {
         class JButtonSosnowskysHogweed extends GUIField {
             public JButtonSosnowskysHogweed() {
-                super("S");
+                super("S", x ,y, origin);
                 this.setBackground(new Color(0,100,0));
             }
         }
@@ -51,7 +51,7 @@ public class SosnowskysHogweed extends Plant {
     }
 
     @Override
-    public final Organism getNew(Coordinates coords) {
+    public final Organism getNew(final Coordinates coords) {
         return new SosnowskysHogweed(coords, this.getOrigin());
     }
 

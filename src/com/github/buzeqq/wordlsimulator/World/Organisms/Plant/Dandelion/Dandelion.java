@@ -15,15 +15,15 @@ public class Dandelion extends Plant {
         super(coordinates, 0, origin);
     }
 
-    public Dandelion(String data, World origin) {
+    public Dandelion(final String data, final World origin) {
         super(data, origin);
     }
 
     @Override
-    public final GUIField print() {
+    public final GUIField print(final int x, final int y, final World origin) {
         class JButtonDandelion extends GUIField {
             public JButtonDandelion() {
-                super("D");
+                super("D", x, y, origin);
                 this.setBackground(Color.YELLOW);
             }
         }
@@ -32,8 +32,8 @@ public class Dandelion extends Plant {
     }
 
     @Override
-    public final Organism getNew(Coordinates coords) {
-        return new Dandelion(coords, this.getOrigin());
+    public final Organism getNew(final Coordinates coordinates) {
+        return new Dandelion(coordinates, this.getOrigin());
     }
 
     @Override

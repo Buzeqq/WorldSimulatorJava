@@ -91,6 +91,10 @@ public abstract class Organism {
         }
     }
 
+    public abstract GUIField print(final int x, final int y, final World origin);
+
+    public abstract Organism getNew(final Coordinates coords);
+
     protected Coordinates getFreeCoordsNextTo() {
         for (Direction direction : Direction.values()) {
             Coordinates coords = new Coordinates(this.getCoords(), direction);
@@ -99,9 +103,6 @@ public abstract class Organism {
         }
         return null;
     }
-    public abstract GUIField print();
-
-    public abstract Organism getNew(Coordinates coords);
 
     private final int initiative;
     private int strength;

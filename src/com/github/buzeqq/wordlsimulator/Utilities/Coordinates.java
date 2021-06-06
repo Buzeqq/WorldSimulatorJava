@@ -3,8 +3,6 @@ package com.github.buzeqq.wordlsimulator.Utilities;
 import java.util.Random;
 
 public class Coordinates {
-    private int x;
-    private int y;
 
     public Coordinates(final int x, final int y) {
         this.x = x;
@@ -55,27 +53,9 @@ public class Coordinates {
         return new Coordinates(this.x, this.y);
     }
 
-    public final void setCoords(final int x, final int y) {
-        this.x = x;
-        this.y = y;
-    }
-
     public final void setCoords(final Coordinates coords) {
         this.x = coords.x;
         this.y = coords.y;
-    }
-
-    static public Coordinates getRandomCoordinates(final int upperboundX, final int upperboundY) {
-        Random random = new Random();
-        return new Coordinates(random.nextInt(upperboundX), random.nextInt(upperboundY));
-    }
-
-    static public int calculateDistance(final Coordinates coordinates1, final Coordinates coordinates2) {
-        return Math.abs(coordinates1.x - coordinates2.x) + Math.abs(coordinates1.y - coordinates2.y);
-    }
-
-    static public Coordinates parseCoordinates(String s) {
-        return new Coordinates(Integer.parseInt(s.substring(0, s.indexOf(","))), Integer.parseInt(s.substring(s.indexOf(",") + 2)));
     }
 
     @Override
@@ -95,4 +75,21 @@ public class Coordinates {
             return this.x == coordinates.x && this.y == coordinates.y;
         } else return false;
     }
+
+    static public Coordinates getRandomCoordinates(final int upperboundX, final int upperboundY) {
+        Random random = new Random();
+        return new Coordinates(random.nextInt(upperboundX), random.nextInt(upperboundY));
+    }
+
+    static public int calculateDistance(final Coordinates coordinates1, final Coordinates coordinates2) {
+        return Math.abs(coordinates1.x - coordinates2.x) + Math.abs(coordinates1.y - coordinates2.y);
+    }
+
+    static public Coordinates parseCoordinates(String s) {
+        return new Coordinates(Integer.parseInt(s.substring(0, s.indexOf(","))), Integer.parseInt(s.substring(s.indexOf(",") + 2)));
+    }
+
+    private int x;
+    private int y;
+
 }

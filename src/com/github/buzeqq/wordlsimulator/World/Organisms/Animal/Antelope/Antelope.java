@@ -12,10 +12,10 @@ import java.util.Random;
 
 public class Antelope extends Animal {
 
-    public Antelope(Coordinates coordinates, World origin) {
+    public Antelope(final Coordinates coordinates, final World origin) {
         super(coordinates, 4, 4, origin);
     }
-    public Antelope(String data, World origin) {
+    public Antelope(final String data, final World origin) {
         super(data, origin);
     }
 
@@ -24,17 +24,12 @@ public class Antelope extends Animal {
         Random random = new Random();
         Direction direction = Direction.values()[random.nextInt(4)];
 
-        // while not possible to move by one, choose new direction
-        // if possible check if move by two position is possible, if not move by one
-        // if possible move by 2
-
         while (this.validateMove(direction)) {
             direction = Direction.values()[random.nextInt(4)];
         }
 
         Coordinates newCoordinates = new Coordinates(this.getCoords(), direction);
         if (!this.validateMove(newCoordinates, direction)) {
-            // move by two
             newCoordinates = new Coordinates(newCoordinates, direction);
         }
         this.checkIfCollides(newCoordinates);
@@ -63,15 +58,15 @@ public class Antelope extends Animal {
     }
 
     @Override
-    public final boolean sameType(Animal other) {
+    public final boolean sameType(final Animal other) {
         return other instanceof Antelope;
     }
 
     @Override
-    public final GUIField print() {
+    public final GUIField print(final int x, final int y, final World origin) {
         class JButtonAntelope extends GUIField {
             public JButtonAntelope() {
-                super("A");
+                super("A", x, y, origin);
                 this.setBackground(new Color(0xf4c587));
             }
         }
@@ -80,7 +75,7 @@ public class Antelope extends Animal {
     }
 
     @Override
-    public final Organism getNew(Coordinates coords) {
+    public final Organism getNew(final Coordinates coords) {
         return new Antelope(coords, this.getOrigin());
     }
 
@@ -89,6 +84,4 @@ public class Antelope extends Animal {
         return "Antelope: " + this.getCoords() + " initiative: " + this.getInitiative() + " strength: " +
                 this.getStrength() + " age: " + this.getAge();
     }
-
-
 }

@@ -27,10 +27,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class World {
-    private final HashMap<Coordinates, Organism> organisms;
-    private final Coordinates bounds;
-    private final Commentator commentator;
-    private final GUI gui;
 
     public World(final int x, final int y, GUI gui) {
         this.bounds = new Coordinates(x, y);
@@ -38,57 +34,24 @@ public class World {
         this.commentator = new Commentator(gui.getCommentSection());
         this.gui = gui;
 
-        // Human
         this.born(new Human(this.getRandomFreeCoords(), this, gui.getWorldPane()));
-
-        // Animals
-        this.born(new Sheep(this.getRandomFreeCoords(), this));
-        this.born(new Sheep(this.getRandomFreeCoords(), this));
-        this.born(new Sheep(this.getRandomFreeCoords(), this));
-        this.born(new Fox(this.getRandomFreeCoords(), this));
-        this.born(new Fox(this.getRandomFreeCoords(), this));
-        this.born(new Fox(this.getRandomFreeCoords(), this));
-        this.born(new Wolf(this.getRandomFreeCoords(), this));
-        this.born(new Wolf(this.getRandomFreeCoords(), this));
-        this.born(new Wolf(this.getRandomFreeCoords(), this));
-        this.born(new Turtle(this.getRandomFreeCoords(), this));
-        this.born(new Turtle(this.getRandomFreeCoords(), this));
-        this.born(new Turtle(this.getRandomFreeCoords(), this));
-        this.born(new Antelope(this.getRandomFreeCoords(), this));
-        this.born(new Antelope(this.getRandomFreeCoords(), this));
-        this.born(new Antelope(this.getRandomFreeCoords(), this));
-        this.born(new CyberSheep(this.getRandomFreeCoords(), this));
-        this.born(new CyberSheep(this.getRandomFreeCoords(), this));
-        this.born(new CyberSheep(this.getRandomFreeCoords(), this));
-
-        // Plants
-        this.born(new Grass(this.getRandomFreeCoords(), this));
-        this.born(new Grass(this.getRandomFreeCoords(), this));
-        this.born(new Grass(this.getRandomFreeCoords(), this));
-        this.born(new Grass(this.getRandomFreeCoords(), this));
-        this.born(new Dandelion(this.getRandomFreeCoords(), this));
-        this.born(new Dandelion(this.getRandomFreeCoords(), this));
-        this.born(new Dandelion(this.getRandomFreeCoords(), this));
-        this.born(new Dandelion(this.getRandomFreeCoords(), this));
-        this.born(new Guarana(this.getRandomFreeCoords(), this));
-        this.born(new Guarana(this.getRandomFreeCoords(), this));
-        this.born(new Guarana(this.getRandomFreeCoords(), this));
-        this.born(new Guarana(this.getRandomFreeCoords(), this));
-        this.born(new WolfBerries(this.getRandomFreeCoords(), this));
-        this.born(new WolfBerries(this.getRandomFreeCoords(), this));
-        this.born(new WolfBerries(this.getRandomFreeCoords(), this));
-        this.born(new WolfBerries(this.getRandomFreeCoords(), this));
-        this.born(new SosnowskysHogweed(this.getRandomFreeCoords(), this));
-        this.born(new SosnowskysHogweed(this.getRandomFreeCoords(), this));
-        this.born(new SosnowskysHogweed(this.getRandomFreeCoords(), this));
-        this.born(new SosnowskysHogweed(this.getRandomFreeCoords(), this));
-
-        this.printOrganisms();
+        for (int i = 0; i < 3; i++) {
+            this.born(new Sheep(this.getRandomFreeCoords(), this));
+            this.born(new Fox(this.getRandomFreeCoords(), this));
+            this.born(new Wolf(this.getRandomFreeCoords(), this));
+            this.born(new Turtle(this.getRandomFreeCoords(), this));
+            this.born(new Antelope(this.getRandomFreeCoords(), this));
+            this.born(new CyberSheep(this.getRandomFreeCoords(), this));
+            this.born(new Grass(this.getRandomFreeCoords(), this));
+            this.born(new Dandelion(this.getRandomFreeCoords(), this));
+            this.born(new Guarana(this.getRandomFreeCoords(), this));
+            this.born(new WolfBerries(this.getRandomFreeCoords(), this));
+            this.born(new SosnowskysHogweed(this.getRandomFreeCoords(), this));
+        }
     }
 
     public void makeTurn() {
-
-        List<Map.Entry<Coordinates, Organism>> list = new LinkedList<>(organisms.entrySet());
+        final List<Map.Entry<Coordinates, Organism>> list = new LinkedList<>(organisms.entrySet());
         list.sort((o1, o2) -> o1.getValue().compareTo(o2.getValue()));
 
         for (Map.Entry<Coordinates, Organism> organism : list) {
@@ -97,22 +60,22 @@ public class World {
         }
 
         this.commentator.updateCommentSection();
-        this.printOrganisms();
     }
 
     public final Coordinates getBounds() {
         return bounds;
     }
 
-    public final Organism getOrganism(Coordinates coords) {
-        return this.organisms.get(coords);
+    public final Organism getOrganism(final Coordinates coordinates) {
+        return this.organisms.get(coordinates);
     }
 
     public final Commentator getCommentator() {
         return this.commentator;
     }
 
-    public final void born(Organism organism) {
+    public final void born(final Organism organism) {
+        if (this.organisms.get(organism.getCoords()) != null) return;
         this.organisms.put(organism.getCoords(), organism);
         this.commentator.born(organism);
     }
@@ -127,26 +90,12 @@ public class World {
         this.organisms.put(newCoords, organism);
     }
 
-    private Coordinates getRandomFreeCoords() {
-        Coordinates coords = Coordinates.getRandomCoordinates(bounds.getX(), bounds.getY());
-        if (this.getOrganism(coords) != null) return this.getRandomFreeCoords();
-        else return coords;
-    }
-
-    public final boolean validateCoords(Coordinates coords) {
+    public final boolean validateCoords(final Coordinates coords) {
         if (coords.getX() >= this.bounds.getX() || coords.getX() < 0) return true;
         return coords.getY() >= this.bounds.getY() || coords.getY() < 0;
     }
 
-    private void printOrganisms() {
-        System.out.println("-----------------------------");
-        for (Organism organism : this.organisms.values()) {
-            System.out.println(organism);
-        }
-        System.out.println("-----------------------------");
-    }
-
-    public final Coordinates getClosestHogweed(Coordinates coords) {
+    public final Coordinates getClosestHogweed(final Coordinates coords) {
        List<Organism> potentialTargets = this.organisms.values().stream()
                .filter(organism -> organism instanceof SosnowskysHogweed)
                .collect(Collectors.toList());
@@ -165,7 +114,7 @@ public class World {
        return minOrganism == null ? null : minOrganism.getCoords();
     }
 
-    public final void save(File directory) {
+    public final void save(final File directory) {
         if (directory == null) return;
 
         Date date = new Date();
@@ -196,25 +145,7 @@ public class World {
 
     }
 
-    private void writeSave(String path) throws IOException {
-        System.out.println(path);
-        FileWriter fileWriter = new FileWriter(path);
-        fileWriter.write( "TURN:" + this.gui.getTurn() + "\n");
-        fileWriter.write("X:" + this.getBounds().getX() + "\nY:" + this.getBounds().getY() + "\n");
-
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Organism organism : this.organisms.values()) {
-            if (organism.isDead()) continue;
-            stringBuilder.append("o:").append(organism).append("\n");
-        }
-
-        stringBuilder.append("CommentSection:\n");
-        stringBuilder.append(this.gui.getCommentSectionContent());
-        fileWriter.write(String.valueOf(stringBuilder));
-        fileWriter.close();
-    }
-
-    public final void load(File path) {
+    public final void load(final File path) {
         this.organisms.clear();
 
         try {
@@ -245,7 +176,25 @@ public class World {
 
     }
 
-    private void readCommentSection(Scanner loadReader) {
+    private void writeSave(final String path) throws IOException {
+        System.out.println(path);
+        FileWriter fileWriter = new FileWriter(path);
+        fileWriter.write( "TURN:" + this.gui.getTurn() + "\n");
+        fileWriter.write("X:" + this.getBounds().getX() + "\nY:" + this.getBounds().getY() + "\n");
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Organism organism : this.organisms.values()) {
+            if (organism.isDead()) continue;
+            stringBuilder.append("o:").append(organism).append("\n");
+        }
+
+        stringBuilder.append("CommentSection:\n");
+        stringBuilder.append(this.gui.getCommentSectionContent());
+        fileWriter.write(String.valueOf(stringBuilder));
+        fileWriter.close();
+    }
+
+    private void readCommentSection(final Scanner loadReader) {
         this.gui.getCommentSection().setText("");
         while (loadReader.hasNextLine()) {
             this.gui.getCommentSection().append(loadReader.nextLine() + "\n");
@@ -272,15 +221,26 @@ public class World {
         }
     }
 
-    private void setY(String data) {
+    private void setY(final String data) {
         this.bounds.setY(Integer.parseInt(data.substring(2)));
     }
 
-    private void setX(String data) {
+    private void setX(final String data) {
         this.bounds.setX(Integer.parseInt(data.substring(2)));
     }
 
-    private void setTurn(String data) {
+    private void setTurn(final String data) {
         this.gui.setTurn(Integer.parseInt(data.substring(5)));
     }
+
+    private Coordinates getRandomFreeCoords() {
+        Coordinates coords = Coordinates.getRandomCoordinates(bounds.getX(), bounds.getY());
+        if (this.getOrganism(coords) != null) return this.getRandomFreeCoords();
+        else return coords;
+    }
+
+    private final HashMap<Coordinates, Organism> organisms;
+    private final Coordinates bounds;
+    private final Commentator commentator;
+    private final GUI gui;
 }

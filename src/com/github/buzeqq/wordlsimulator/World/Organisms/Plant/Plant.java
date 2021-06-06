@@ -9,11 +9,11 @@ import java.util.Random;
 
 public abstract class Plant extends Organism {
 
-    public Plant(Coordinates coords, int strength, World origin) {
-        super(coords, 0, strength, origin);
+    public Plant(final Coordinates coordinates, final int strength, final World origin) {
+        super(coordinates, 0, strength, origin);
     }
 
-    public Plant(String data, World origin) {
+    public Plant(final String data, final World origin) {
         super(data, origin);
     }
 

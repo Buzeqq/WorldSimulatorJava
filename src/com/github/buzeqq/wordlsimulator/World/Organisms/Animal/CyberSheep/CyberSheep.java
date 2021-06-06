@@ -12,11 +12,11 @@ import java.util.Random;
 
 public class CyberSheep extends Animal {
 
-    public CyberSheep(Coordinates coordinates, World origin) {
+    public CyberSheep(final Coordinates coordinates, final World origin) {
         super(coordinates, 11, 4, origin);
     }
 
-    public CyberSheep(String data, World origin) {
+    public CyberSheep(final String data, final World origin) {
         super(data, origin);
     }
 
@@ -32,15 +32,15 @@ public class CyberSheep extends Animal {
     }
 
     @Override
-    public final boolean sameType(Animal other) {
+    public final boolean sameType(final Animal other) {
         return other instanceof CyberSheep;
     }
 
     @Override
-    public final GUIField print() {
+    public final GUIField print(final int x, final int y, final World origin) {
         class JButtonCyberSheep extends GUIField {
             public JButtonCyberSheep() {
-                super("CS");
+                super("CS", x, y, origin);
                 this.setBackground(Color.MAGENTA);
             }
         }
@@ -60,27 +60,21 @@ public class CyberSheep extends Animal {
     }
 
     private Direction determineDirection(Coordinates target) {
-
         if (this.getCoords().getX() == target.getX()) {
-            // move only within Y axis
             if (this.getCoords().getY() < target.getY()) return Direction.DIRECTION_DOWN;
             else return Direction.DIRECTION_UP;
         }
 
         if (this.getCoords().getY() == target.getY()) {
-            // move only within X axis
             if (this.getCoords().getX() < target.getX()) return Direction.DIRECTION_RIGHT;
             else return Direction.DIRECTION_LEFT;
         }
 
-        // in other case choose axis randomly
         Random xOrY = new Random();
         if (xOrY.nextInt(2) == 0) {
-            // move within Y axis
             if (this.getCoords().getY() < target.getY()) return Direction.DIRECTION_DOWN;
             else return Direction.DIRECTION_UP;
         } else {
-            // move within X axis
             if (this.getCoords().getX() < target.getX()) return Direction.DIRECTION_RIGHT;
             else return Direction.DIRECTION_LEFT;
         }

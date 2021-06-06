@@ -8,11 +8,12 @@ import com.github.buzeqq.wordlsimulator.World.World;
 import java.util.Random;
 
 public abstract class Animal extends Organism {
-    public Animal(final Coordinates coords, final int initiative, final int strength, final World origin) {
-        super(coords, initiative, strength, origin);
+
+    public Animal(final Coordinates coordinates, final int initiative, final int strength, final World origin) {
+        super(coordinates, initiative, strength, origin);
     }
 
-    public Animal(String data, World origin) {
+    public Animal(final String data, final World origin) {
         super(data, origin);
     }
 
@@ -42,7 +43,7 @@ public abstract class Animal extends Organism {
         }
     }
 
-    protected void breed(Animal other) {
+    protected void breed(final Animal other) {
         Coordinates coordsNextTo = this.getFreeCoordsNextTo();
         if (coordsNextTo == null) coordsNextTo = other.getFreeCoordsNextTo();
         if (coordsNextTo == null) return;
@@ -50,11 +51,11 @@ public abstract class Animal extends Organism {
         this.getOrigin().born(this.getNew(coordsNextTo));
     }
 
-    protected boolean validateMove(Direction direction) {
+    protected boolean validateMove(final Direction direction) {
         return this.validateMove(this.getCoords(), direction);
     }
 
-    protected boolean validateMove( Coordinates coordinates, Direction direction) {
+    protected boolean validateMove(final Coordinates coordinates, final Direction direction) {
         Coordinates bounds = this.getOrigin().getBounds();
 
         if ((coordinates.getX() == 0 && direction == Direction.DIRECTION_LEFT) ||
@@ -64,11 +65,16 @@ public abstract class Animal extends Organism {
                 (coordinates.getY() == bounds.getY() - 1 && direction == Direction.DIRECTION_DOWN));
     }
 
-    public abstract boolean sameType(Animal other);
+    public final void buff(final int buff) {
+        this.getOrigin().getCommentator().buff(this);
+        this.setStrength(this.getStrength() + buff);
+    }
 
-    public abstract Organism getNew(Coordinates coords);
+    public abstract boolean sameType(final Animal other);
 
-    protected void checkIfCollides(Coordinates newCords) {
+    public abstract Organism getNew(final Coordinates coords);
+
+    protected void checkIfCollides(final Coordinates newCords) {
         if (this.getOrigin().getOrganism(newCords) == null) {
             this.getOrigin().getCommentator().move(this, newCords);
             this.getOrigin().changeOrganisms(newCords, this);
@@ -76,10 +82,5 @@ public abstract class Animal extends Organism {
         } else {
             this.getOrigin().getOrganism(newCords).collision(this);
         }
-    }
-
-    public final void buff(final int buff) {
-        this.getOrigin().getCommentator().buff(this);
-        this.setStrength(this.getStrength() + buff);
     }
 }
